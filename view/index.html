@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>ピンチ脱出 配信表示</title>
+<title>みんなのピンチ脱出 配信表示</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
 <!-- k-fonts:end -->
 <link rel="stylesheet" href="/kit/kit.css">
 <script src="/kit/kit.js" defer></script>
+<script src="/js/odai.js"></script>
 <!-- OBS 表示ページ。広告・GA4 なし。操作ページ（同じブラウザ）から BroadcastChannel で今の場面だけ受け取る。
      1600x900 で組んだ舞台を、ウィンドウに合わせて縮める（どのサイズでもスクロールなし）。
      字はすべて舞台の上で42px以上（1/3に縮めても14px相当）。 -->
@@ -35,8 +36,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
 .scene.sm{font-size:62px}
 .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:10px}
 .tool{display:grid;place-items:center;height:168px;padding:8px 18px;box-sizing:border-box;border:5px solid var(--k-sumi);border-radius:12px;background:#fff;font-family:var(--k-bold);font-size:64px;line-height:1.15;text-align:center;word-break:auto-phrase;text-wrap:balance;box-shadow:6px 6px 0 var(--k-sumi)}
-.tool{overflow-wrap:anywhere}
-.tool.long{font-size:54px}
+.tool{word-break:keep-all;overflow-wrap:normal}
 .tool.q{color:var(--k-text-2);background:var(--k-kinari);box-shadow:none}
 .call{margin-top:26px;font-family:var(--k-bold);font-size:56px;line-height:1.25;text-align:center}
 .call.sub{font-family:var(--k-body);font-weight:800;font-size:46px;color:var(--k-text-2)}
@@ -65,7 +65,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
 </head>
 <body>
 <div id="stage">
-  <div class="top"><span class="ttl" id="ttl">ピンチ脱出</span><span class="score" id="score"></span></div>
+  <div class="top"><span class="ttl" id="ttl">みんなのピンチ脱出</span><span class="score" id="score"></span></div>
   <span class="tag" id="tag" hidden></span>
   <div class="main" id="main"></div>
   <div id="veil" hidden></div>
@@ -79,10 +79,13 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
   window.addEventListener('resize', fit); fit();
   function reveal(el, cls){ if (el && window.KKit && KKit.reveal) { el.classList.add(cls); KKit.reveal(el); } }
   var lastTk = null, lastStamp = null, lastPhase = '';
-  function toolHtml(t){ return '<div class="tool' + (String(t).length >= 7 ? ' long' : '') + '">' + esc(t) + '</div>'; }
+  function toolHtml(t){ return '<div class="tool">' + window.PC_toolHtml(t) + '</div>'; }
+  // 道具の字：2行に入らない・幅をはみ出すときだけ小さくする（42pxまで）
+  function fitTools(){ var v = $('vTools'); if (v) window.PC_fitTools(v.children, 2, 42, 2); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTools);
   function render(s){
     if (!s) s = { screen: 'setup', title: 'みんなのピンチ脱出' };
-    var tt = s.title || 'ピンチ脱出';
+    var tt = s.title || 'みんなのピンチ脱出';
     $('ttl').textContent = tt; $('ttl').className = 'ttl' + (tt.length > 16 ? ' s' : tt.length > 12 ? ' m' : '');
     var main = $('main'), tag = $('tag'), hk = $('hanko');
     var inGame = s.screen === 'game' && s.phase && s.phase !== 'ready';
@@ -100,7 +103,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
     }
     if (!inGame) {
       tag.textContent = 'はじまるよ';
-      main.innerHTML = '<div class="idle"><div class="big">' + esc(s.title || 'ピンチ脱出') + '</div><p>ピンチの場面と、使える道具が3つ出ます。<br>配信者が脱出の話をしたら、<br>「成功」か「失敗」をコメントしてね。</p></div>';
+      main.innerHTML = '<div class="idle"><div class="big">' + esc(tt) + '</div><p>ピンチの場面と、使える道具が3つ出ます。<br>配信者が脱出の話をしたら、<br>「成功」か「失敗」をコメントしてね。</p></div>';
       hk.hidden = true; $('veil').hidden = true; lastPhase = 'idle'; lastTk = null;
       return;
     }
@@ -112,6 +115,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
     var newTools = lastTk !== s.tk;
     main.innerHTML = '<div class="lrow"><div class="lbl">ピンチ</div>' + tag.outerHTML.replace(' hidden=""', '').replace('id="tag"', '') + '</div><div class="scene' + (sc.length > 26 ? ' sm' : '') + '" id="vScene">' + esc(sc) + '</div>'
       + '<div class="lbl" style="margin-top:18px">使える道具</div><div class="tools" id="vTools">' + (s.tools || []).map(toolHtml).join('') + '</div>' + call;
+    fitTools();
     if (newTools) { [].forEach.call($('vTools').children, function(el, k){ el.style.animationDelay = (k * 0.12) + 's'; reveal(el, 'k-reveal-fuda'); }); }
     lastTk = s.tk;
     if (s.phase === 'stamp') {

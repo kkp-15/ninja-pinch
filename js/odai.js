@@ -104,6 +104,37 @@
     ]
   };
 
+  // 道具の名前の折り目（「|」の所でだけ折れる。画面は word-break:keep-all）。ここに無い名前は折らずに、入らなければ字を小さくする
+  var BR = ['ガム|テープ', '折りたたみ|傘', '洗濯|ばさみ', 'ペット|ボトル', '紙|ひこうき', '方位|磁石', '紙|コップ', '植木|ばち', '腕|時計',
+    '三角|定規', '黒板|消し', '給食|当番の|帽子', '絵の具|セット', '鍵盤|ハーモニカ', '連絡|帳', '体育|帽',
+    '洗濯|かご', '孫の|手', 'トイレット|ペーパー', '目覚まし|時計', '物干し|ざお', '生|たまご', '炊飯|器',
+    '鏡|もち', '年賀|はがき', 'しめ|飾り', '雪|だるま', 'クリスマス|ツリー', 'サンタの|帽子', 'くす|玉', '獅子舞の|頭', '手|ぶくろ',
+    '魔法の|つえ', '空飛ぶ|じゅうたん', '透明|マント', '宝の|地図', 'ドラゴンの|たまご', '何でも|入る|つぼ', '話す|カエル', '光る|石',
+    '時間を|戻す|砂時計', '小人の|家来', 'しゃべる|鏡', '雲の|わたあめ', '巨人の|くつ下', '忍者の|けむり玉', 'どこまでも|伸びる|ぼう', '魔法の|ランプ',
+    '妖精の|こな', 'ロボット|犬', 'なぞの|ボタン', '人魚の|うろこ'];
+  var BRMAP = {};
+  BR.forEach(function(b){ BRMAP[b.replace(/\|/g, '')] = b; });
+  window.PC_TOOL_BR = BRMAP;
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+  // 道具1つ分の中身（折り目に <wbr>）
+  window.PC_toolHtml = function(t){ t = String(t == null ? '' : t); return '<span>' + (BRMAP[t] || t).split('|').map(esc).join('<wbr>') + '</span>'; };
+  // 枠に入るまで字を小さくする（幅・高さをはみ出す・maxLines 行をこえるとき）。min より小さくはしない
+  window.PC_fitTools = function(els, maxLines, min, step){
+    [].forEach.call(els, function(el){
+      var sp = el.firstElementChild; if (!sp) return;
+      el.style.fontSize = '';
+      var cs = getComputedStyle(el), fs = parseFloat(cs.fontSize);
+      for (var i = 0; i < 30; i++) {
+        var w = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        var lh = parseFloat(getComputedStyle(sp).lineHeight) || fs * 1.25;
+        var h = el.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+        var lines = Math.round(sp.offsetHeight / lh);
+        if ((lines <= maxLines && sp.offsetWidth <= w + 0.5 && sp.offsetHeight <= h + 0.5) || fs - step < min) break;
+        fs -= step; el.style.fontSize = fs + 'px';
+      }
+    });
+  };
+
   window.PC_TOOLS = {
     common: [
       '輪ゴム', 'うちわ', '懐中電灯', 'ガムテープ', 'ふろしき', '鉛筆', 'ハーモニカ', 'けん玉',

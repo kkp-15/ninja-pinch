@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ピンチ脱出ゲーム｜場面と道具3つで切り抜ける話をする・お題80場面（無料）</title>
-<meta name="description" content="ピンチ脱出ゲームを無料で。ピンチの場面と使える道具3つが出たら、道具で切り抜ける話をして、聞いた人が「成功／失敗」を決めます。場面80・道具120（定番・学校・おうち・年末年始・ファンタジー）。2〜8人でスマホを回して遊べて、配信ではOBSに映せます。登録不要。">
+<title>みんなのピンチ脱出｜場面と道具3つで切り抜ける話をするゲーム（無料）</title>
+<meta name="description" content="みんなのピンチ脱出は、ピンチの場面と使える道具3つで切り抜ける話をして、聞いた人が「成功／失敗」を決める無料のゲームです。場面80・道具120（定番・学校・おうち・年末年始・ファンタジー）。2〜8人でスマホを回して遊べて、配信ではOBSに映せます。登録不要。">
 <meta name="theme-color" content="#ff8a3d">
 <link rel="canonical" href="https://pinch.kkpwebninja.com/">
 <!-- WEBNINJA_UNIFIED_FAVICON -->
@@ -12,20 +12,21 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<meta property="og:title" content="ピンチ脱出ゲーム｜道具3つで切り抜ける話をする">
+<meta property="og:title" content="みんなのピンチ脱出｜道具3つで切り抜ける話をする">
 <meta property="og:description" content="ピンチの場面と道具3つで脱出の話をして、聞いた人が成功か失敗かを決める。場面80・道具120。2〜8人・配信にも。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pinch.kkpwebninja.com/">
-<meta property="og:site_name" content="ピンチ脱出">
+<meta property="og:site_name" content="みんなのピンチ脱出">
 <meta property="og:image" content="https://pinch.kkpwebninja.com/ogp.png?d=20261021">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="みんなのピンチ脱出｜道具3つで切り抜ける話をする">
 <meta name="twitter:image" content="https://pinch.kkpwebninja.com/ogp.png?d=20261021">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ピンチ脱出",
+  "name": "みんなのピンチ脱出",
   "url": "https://pinch.kkpwebninja.com/",
   "description": "ピンチの場面と使える道具3つが出る。道具で切り抜ける話をして、聞いた人が成功か失敗かを決める話のゲーム。2〜8人でスマホを回すか、配信でOBSに映して遊ぶ。",
   "applicationCategory": "GameApplication",
@@ -149,8 +150,7 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 .pc-scene p.wait{font-family:var(--k-body);font-size:16px;font-weight:700;color:var(--k-text-2);min-height:0}
 .pc-toolh{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:6px}
 .pc-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.pc-tool{display:grid;place-items:center;min-height:72px;padding:6px;border:2px solid var(--k-sumi);border-radius:var(--k-r);background:#fff;font-family:var(--k-bold);font-size:17px;line-height:1.25;text-align:center;word-break:auto-phrase;overflow-wrap:anywhere}
-.pc-tool.long{font-size:15px}
+.pc-tool{display:grid;place-items:center;min-height:72px;padding:6px;border:2px solid var(--k-sumi);border-radius:var(--k-r);background:#fff;font-family:var(--k-bold);font-size:17px;line-height:1.25;text-align:center;word-break:keep-all;overflow-wrap:normal}
 .pc-tool.q{color:var(--k-text-2);background:var(--k-kinari)}
 .pc-link{min-height:44px;padding:0 4px;border:0;background:none;color:var(--k-sumi);font:inherit;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .pc-link[disabled]{color:var(--k-text-2);text-decoration:none;cursor:default}
@@ -209,7 +209,6 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
   .pc-names{grid-template-columns:1fr 1fr 1fr 1fr}
   .pc-scene p{font-size:26px}
   .pc-tool{font-size:19px;min-height:84px}
-  .pc-tool.long{font-size:18px}
   h1.pc-h1{font-size:38px}
 }
 @media (max-width:767px){
@@ -231,12 +230,25 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 body.stream .pc-about,body.stream #uniFoot,body.stream .pc-adwrap{display:none!important}
 body.stream #app{zoom:var(--z,1)}
 body.stream .pc-start{position:static;margin:16px 0 0;padding:0;border:0;background:none}
-body.stream.in-game #app{width:1200px;max-width:none;margin:0 auto}
+body.stream #app{width:960px;max-width:none;margin:0 auto;box-sizing:border-box}
+/* 設定は2列（左：遊び方・タイトル／右：お題・話の数）。字は14px以上のまま、960x740 で縮めずに入る高さ */
+body.stream #setup{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;align-items:start}
+body.stream #setup>h1,body.stream #setup>.pc-lead,body.stream #resumeBox,body.stream #streamBox,body.stream #setup>.pc-start{grid-column:1/-1}
+body.stream #setup h1.pc-h1{margin:14px 0 4px}
+body.stream #setup .pc-lead{margin:0 0 4px}
+body.stream #setup .pc-sec{margin:12px 0 0}
+body.stream #streamBox{margin:16px 0 0;padding:10px 0}
+body.stream .pc-start{margin:12px 0 0}
+/* 結果：7話でも縮めずに入るよう行を詰める */
+body.stream .pc-res .k-result{margin:8px 0 4px}
+body.stream .pc-com{margin:0 0 8px}
+body.stream .pc-rh{margin:8px 0 0}
+body.stream .pc-log button{min-height:44px;padding:2px 4px}
+body.stream .pc-acts{margin:12px 0 0}
 body.stream.in-game .pc-top{display:none}
-body.stream.in-game .pc-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:32px;align-items:start;padding-top:8px}
+body.stream.in-game .pc-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start;padding-top:8px}
 body.stream.in-game .pc-scene p{font-size:30px}
 body.stream.in-game .pc-tool{font-size:22px;min-height:96px}
-body.stream.in-game .pc-tool.long{font-size:20px}
 body.stream .pc-bar{position:static;margin:16px 0 8px;padding:0;border:0;background:none}
 body.stream .pc-colB{padding-top:16px}
 .pc-titleshow{margin:0 0 4px;font-family:var(--k-bold);font-size:18px}
@@ -247,11 +259,11 @@ body.stream .pc-colB{padding-top:16px}
 </head>
 <body class="k-page">
 <div class="pc-wrap" id="app">
-  <header class="pc-top"><a href="/">ピンチ脱出</a><small id="modeTag">登録不要・無料</small></header>
+  <header class="pc-top"><a href="/">みんなのピンチ脱出</a><small id="modeTag">登録不要・無料</small></header>
 
   <!-- ===== 設定 ===== -->
   <section id="setup">
-    <h1 class="pc-h1">ピンチ脱出</h1>
+    <h1 class="pc-h1">みんなのピンチ脱出</h1>
     <p class="pc-lead" id="lead">ピンチの場面と道具3つが出ます。道具で切り抜ける話をして、聞いた人が「成功」か「失敗」を決めます。</p>
     <div class="pc-resume" id="resumeBox" hidden><p id="resumeT"></p><button type="button" class="k-btn k-btn-main k-btn-sm" id="resumeGo">続きから</button><button type="button" class="k-btn k-btn-sub k-btn-sm" id="resumeDel">消して新しく</button></div>
 
@@ -347,7 +359,7 @@ body.stream .pc-colB{padding-top:16px}
 
   <!-- ===== 読みもの（設定の画面・ふだんのモードだけ） ===== -->
   <article class="pc-about" id="about">
-    <h2 class="k-h2">ピンチ脱出の遊び方</h2>
+    <h2 class="k-h2">みんなのピンチ脱出の遊び方</h2>
     <ol class="k-steps">
       <li><b>ピンチを出す。</b>場面と、使える道具が3つ出ます。</li>
       <li><b>脱出の話をする。</b>話す人が、道具を使ってどう切り抜けたかを1〜2分で話します。道具は全部使わなくてもかまいません。</li>
@@ -637,7 +649,8 @@ body.stream .pc-colB{padding-top:16px}
       $('gTools').innerHTML = '<div class="pc-tool q">？</div><div class="pc-tool q">？</div><div class="pc-tool q">？</div>';
     } else {
       sc.className = ''; sc.textContent = sceneText(G.scene);
-      $('gTools').innerHTML = G.tools.map(function(t){ return '<div class="pc-tool' + (String(t).length >= 6 ? ' long' : '') + '">' + esc(t) + '</div>'; }).join('');
+      $('gTools').innerHTML = G.tools.map(function(t){ return '<div class="pc-tool">' + window.PC_toolHtml(t) + '</div>'; }).join('');
+      fitTools();
       if (lastTk !== G.tk) { [].forEach.call($('gTools').children, function(el){ reveal(el, 'k-reveal-fuda'); }); }
     }
     lastTk = G.tk;
@@ -727,11 +740,14 @@ body.stream .pc-colB{padding-top:16px}
   function fit(){
     var r = document.documentElement;
     if (!S.stream || innerWidth < 768) { r.style.removeProperty('--z'); return; }
-    var base = SCREEN === 'setup' ? 760 : 1240;
+    var base = 960; // 配信モードは幅960で組む（960x740 で縮めず、字が14px以上）
     var z = Math.min(innerWidth / base, 1.5); r.style.setProperty('--z', z.toFixed(3));
     for (var i = 0; i < 40 && r.scrollHeight > innerHeight + 1 && z > 0.3; i++) { z *= 0.96; r.style.setProperty('--z', z.toFixed(3)); }
   }
-  window.addEventListener('resize', function(){ clearTimeout(fit.t); fit.t = setTimeout(fit, 120); });
+  window.addEventListener('resize', function(){ clearTimeout(fit.t); fit.t = setTimeout(function(){ fitTools(); fit(); }, 120); });
+  // 道具の字：2行に入らない・幅をはみ出すときだけ小さくする（14pxまで）
+  function fitTools(){ if (G && G.phase !== 'ready') window.PC_fitTools($('gTools').children, 2, 14, 1); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ fitTools(); fit(); });
 
   // ===== はじめに =====
   if (S.stream) { document.body.classList.add('stream'); $('modeTag').textContent = '配信モード（広告なし）'; }
