@@ -614,10 +614,10 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
   $('gRedraw').addEventListener('click', function(){ act('redraw'); });
   var lastTk = -1;
   function btn(cls, txt, fn, small){
-    var b = document.createElement('button'), born = Date.now(); b.type = 'button'; b.className = cls;
+    var b = document.createElement('button'); b.type = 'button'; b.className = cls;
     b.innerHTML = esc(txt) + (small ? '<small>' + esc(small) + '</small>' : '');
-    // 場面が変わって同じ所に出たボタンは、出た直後（前のボタンのダブルクリックの2回目）には効かせない
-    b.addEventListener('click', function(e){ if (Date.now() - born < 400) return; fn(e); }); return b;
+    // 場面が変わって同じ所に出たボタンは、出た直後 0.4秒（前のボタンのダブルクリックの2回目）は効かせない（kit の KKit.settle）
+    b.addEventListener('click', fn); KKit.settle(b, 400); return b;
   }
   function render(){
     if (!G) return;
