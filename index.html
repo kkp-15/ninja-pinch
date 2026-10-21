@@ -425,7 +425,7 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
   // ===== 1回の遊び（途中で再読み込みしても続きから。どこにも送らない） =====
   // phase: ready（最初の1話の前）→ story（話す）→ judge（判定）→ stamp（ハンコ）→ 次の story … → 結果
   var G = null, SCREEN = 'setup';
-  var RES = { pending: false, save: function(){}, clear: function(){} };   // 続きから（kit の KKit.resume。下の「はじめに」で作る）
+  var RES = { pending: false, save: function(){}, clear: function(){}, dismiss: function(){ return false; } };   // 続きから（kit の KKit.resume。下の「はじめに」で作る）
   function saveRun(){ if (G && SCREEN !== 'setup' && !RES.pending) RES.save({ screen: SCREEN, G: G }); }
 
   // 場面の山（パックごと。全部出るまで同じ場面は出さない・次に遊ぶときも続きから）
@@ -592,6 +592,7 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
 
   // ===== 画面の切り替え =====
   function show(id){
+    if (SCREEN !== id) KKit.twice.block();   // 切り替えた直後の押し（前の場面の連打）は2回押しに数えない
     SCREEN = id;
     ['setup', 'game', 'result'].forEach(function(s){ $(s).hidden = s !== id; });
     document.body.classList.toggle('in-game', id !== 'setup');
@@ -604,17 +605,19 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
     if (id !== 'setup') saveRun();
   }
 
-  $('startBtn').addEventListener('click', function(){ newGame(); show('game'); });
-  $('againBtn').addEventListener('click', function(){ newGame(); show('game'); });
+  // 続きからを選ばずに始めたら、前回の分を消して表示ページへの送りを戻す（kit の R.dismiss）
+  $('startBtn').addEventListener('click', function(){ RES.dismiss(); newGame(); show('game'); });
+  $('againBtn').addEventListener('click', function(){ RES.dismiss(); newGame(); show('game'); });
   $('backBtn').addEventListener('click', function(){ G = null; show('setup'); });
 
   // ===== 遊ぶ画面 =====
   $('gRedraw').addEventListener('click', function(){ act('redraw'); });
   var lastTk = -1;
   function btn(cls, txt, fn, small){
-    var b = document.createElement('button'); b.type = 'button'; b.className = cls;
+    var b = document.createElement('button'), born = Date.now(); b.type = 'button'; b.className = cls;
     b.innerHTML = esc(txt) + (small ? '<small>' + esc(small) + '</small>' : '');
-    b.addEventListener('click', fn); return b;
+    // 場面が変わって同じ所に出たボタンは、出た直後（前のボタンのダブルクリックの2回目）には効かせない
+    b.addEventListener('click', function(e){ if (Date.now() - born < 400) return; fn(e); }); return b;
   }
   function render(){
     if (!G) return;

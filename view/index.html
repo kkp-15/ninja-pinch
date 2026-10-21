@@ -44,14 +44,24 @@
 .end{display:flex;gap:max(16px,2.4cqw);align-items:center;min-height:0}
 .end .k-result{flex:none;max-width:32%;box-sizing:border-box;border-width:max(14px,1.4cqw) max(36px,3.2cqw);border-image-width:max(14px,1.4cqw) max(36px,3.2cqw);padding:max(4px,.4cqw) 0}
 .end .k-result small{font-size:var(--k-v-min);line-height:1.2}
-.end .k-result b{font-size:var(--k-v-xl);line-height:1.1}
+.end .k-result b{font-size:max(42px,calc(var(--k-v-xl)*var(--f,1)));line-height:1.1}
+.nosp .end li span{display:none}
 .end .k-result b small{display:inline;font-size:var(--k-v-m);color:var(--k-text-2);font-family:var(--k-head)}
-.end ol{flex:1;min-width:0;display:grid;grid-template-columns:repeat(var(--cols,1),minmax(0,1fr));gap:max(6px,.8cqw) max(14px,2cqw);margin:0;padding:0;list-style:none}
-.end li{display:flex;align-items:center;gap:max(10px,1.2cqw);min-width:0;padding:max(2px,.3cqw) max(6px,.6cqw);border-radius:max(4px,.5cqw)}
-.end li .k-stamp{flex:none;width:max(92px,6cqw);height:max(92px,6cqw);font-size:var(--k-v-min);line-height:1}
+.end ol{flex:1;min-width:0;display:grid;grid-template-columns:repeat(var(--cols,1),minmax(0,1fr));gap:calc(max(6px,.8cqw)*var(--f,1)) max(14px,2cqw);margin:0;padding:0;list-style:none}
+.end li{display:flex;align-items:center;gap:max(10px,1.2cqw);min-width:0;padding:calc(max(2px,.3cqw)*var(--f,1)) max(6px,.6cqw);border-radius:max(4px,.5cqw)}
+.end li .k-stamp{flex:none;width:max(64px,calc(max(92px,6cqw)*var(--f,1)));height:max(64px,calc(max(92px,6cqw)*var(--f,1)));font-size:var(--k-v-min);line-height:1}
 .end li span{flex:1;min-width:0;font-size:var(--k-v-min);font-weight:800;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;word-break:auto-phrase}
 .end li.best{background:rgba(255,138,61,.16);box-shadow:inset 0 0 0 max(3px,.25cqw) var(--k-orange)}
 .end li .k-tag{flex:none;margin:0;font-size:var(--k-v-min);padding:0 .4em}
+/* 縦型（?layout=v・9:16。kit の KKit.view が body.vert を付ける）: 並べ方だけ。道具の札は縦に1列・結果は上下に */
+body.vert .k-view-body{align-content:start}
+body.vert .scene{display:block;font-size:max(42px,calc(var(--k-v-m)*var(--f,1)));min-height:auto}
+body.vert .tools{grid-template-columns:minmax(0,1fr);gap:max(16px,3cqw)}
+body.vert .tool{height:max(60px,calc(var(--k-v-m)*1.5*var(--f,1)));font-size:var(--k-v-m)}
+body.vert .call{font-size:var(--k-v-min)}
+body.vert #hanko{width:84cqw;height:34cqw;margin:-17cqw 0 0 -42cqw;font-size:max(42px,12cqw)}
+body.vert .end{flex-direction:column;align-items:stretch}
+body.vert .end .k-result{max-width:none;align-self:center}
 </style>
 </head>
 <body class="k-view">
@@ -73,9 +83,16 @@
   function toolHtml(t){ return '<div class="tool k-kifuda k-kifuda-himo">' + window.PC_toolHtml(t) + '</div>'; }
   // 道具の字：2行に入らない・幅をはみ出すときだけ小さくする（42pxまで）
   function fitTools(){ var v = $('vTools'); if (v) window.PC_fitTools(v.children, 2, 42, 2); }
-  function fitAll(){ KKit.fitText($('ttl'), { min: 42 }); fitTools(); var sc = $('vScene'); if (sc) KKit.fitText(sc, { min: 42, lines: 2 }); }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
-  window.addEventListener('resize', function(){ clearTimeout(fitAll.t); fitAll.t = setTimeout(function(){ render(cur); fitAll(); }, 120); });
+  function fitAll(){ KKit.fitText($('ttl'), { min: 42 }); fitBody(); }
+  // 本文を1画面に（kit の KKit.view.fit）: 大きな字と札の --f を下げ、まだ入らなければ下の呼びかけの行 → 結果の行の文を外す（判子だけに）。名前・道具の字はそのあと収める
+  var LN = V.vert() ? 4 : 2;
+  function fitBody(){
+    var m = $('main'); m.classList.remove('nosp');
+    V.fit(m, { min: 0.6, drop: ['.call.sub', '.call', function(b){ if (!b.querySelector('.end')) return false; b.classList.add('nosp'); return true; }],
+      after: function(){ fitTools(); var sc = $('vScene'); if (sc) KKit.fitText(sc, { min: 42, lines: LN }); } });
+  }
+  // 字のデータが後から届いた・窓の大きさが変わった：描き直して字を収め直す（kit の KKit.view.refit）
+  KKit.view.refit(function(){ render(cur); fitAll(); });
   function render(s){
     var tt = (s && s.title) || 'みんなのピンチ脱出';
     var inGame = s && s.screen === 'game' && s.phase && s.phase !== 'ready';
@@ -92,7 +109,7 @@
         + log.map(function(l, k){ return '<li' + (s.best === k ? ' class="best"' : '') + '><i class="k-stamp' + (l.ok ? '' : ' k-stamp-sumi') + '">' + (l.ok ? '成功' : '失敗') + '</i><span>' + esc(l.scene) + '</span>' + (s.best === k ? '<b class="k-tag">一番</b>' : '') + '</li>'; }).join('')
         + '</ol></div>';
       hk.hidden = true; $('veil').hidden = true; lastPhase = 'result';
-      return;
+      fitBody(); return;
     }
     tag.textContent = { story: 'お話タイム', judge: '判定タイム', stamp: '判定' }[s.phase] || '';
     tag.className = 'pc-tag' + (s.phase === 'judge' ? ' on' : '');
@@ -101,8 +118,7 @@
     var newTools = lastTk !== s.tk;
     main.innerHTML = '<div class="lbl">ピンチ</div><div class="scene k-panel" id="vScene">' + esc(s.scene || '') + '</div>'
       + '<div class="lbl">使える道具</div><div class="tools" id="vTools">' + (s.tools || []).map(toolHtml).join('') + '</div>' + call;
-    KKit.fitText($('vScene'), { min: 42, lines: 2 });
-    fitTools();
+    fitBody();
     if (newTools) { [].forEach.call($('vTools').children, function(el, k){ el.style.animationDelay = (k * 0.12) + 's'; reveal(el, 'k-reveal-fuda'); }); }
     lastTk = s.tk;
     if (s.phase === 'stamp') {
