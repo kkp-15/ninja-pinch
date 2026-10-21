@@ -32,12 +32,11 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
 .score b{color:var(--k-shu);font-weight:400}
 .main{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;padding-top:20px}
 .lbl{font-size:42px;font-weight:800;color:var(--k-text-2);line-height:1.2}
-.scene{margin:6px 0 0;padding:6px 0 6px 28px;border-left:14px solid var(--k-orange);font-family:var(--k-bold);font-size:72px;line-height:1.25;letter-spacing:.02em;word-break:auto-phrase;text-wrap:balance;min-height:180px;display:flex;align-items:center}
+.scene{margin:6px 0 0;padding:6px 32px 10px;border-width:3px;font-family:var(--k-bold);font-size:72px;line-height:1.25;letter-spacing:.02em;word-break:auto-phrase;text-wrap:balance;min-height:180px;display:flex;align-items:center}
 .scene.sm{font-size:62px}
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:10px}
-.tool{display:grid;place-items:center;height:168px;padding:8px 18px;box-sizing:border-box;border:5px solid var(--k-sumi);border-radius:12px;background:#fff;font-family:var(--k-bold);font-size:64px;line-height:1.15;text-align:center;word-break:auto-phrase;text-wrap:balance;box-shadow:6px 6px 0 var(--k-sumi)}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:0;padding-top:30px}   /* 札の上の紐の分 */
+.tool{--k-fuda-u:1.6px;--k-himo:60px;height:192px;padding:0 10px;font-size:64px;line-height:1.15;word-break:auto-phrase;text-wrap:balance}   /* 白木の札は kit の k-kifuda */
 .tool{word-break:keep-all;overflow-wrap:normal}
-.tool.q{color:var(--k-text-2);background:var(--k-kinari);box-shadow:none}
 .call{margin-top:26px;font-family:var(--k-bold);font-size:56px;line-height:1.25;text-align:center}
 .call.sub{font-family:var(--k-body);font-weight:800;font-size:46px;color:var(--k-text-2)}
 .call b{color:var(--k-shu);font-weight:400}
@@ -79,7 +78,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
   window.addEventListener('resize', fit); fit();
   function reveal(el, cls){ if (el && window.KKit && KKit.reveal) { el.classList.add(cls); KKit.reveal(el); } }
   var lastTk = null, lastStamp = null, lastPhase = '';
-  function toolHtml(t){ return '<div class="tool">' + window.PC_toolHtml(t) + '</div>'; }
+  function toolHtml(t){ return '<div class="tool k-kifuda k-kifuda-himo">' + window.PC_toolHtml(t) + '</div>'; }
   // 道具の字：2行に入らない・幅をはみ出すときだけ小さくする（42pxまで）
   function fitTools(){ var v = $('vTools'); if (v) window.PC_fitTools(v.children, 2, 42, 2); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTools);
@@ -113,7 +112,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
       : s.phase === 'judge' ? '<p class="call">「<b>成功</b>」か「失敗」をコメント！</p>' : '';
     var sc = String(s.scene || '');
     var newTools = lastTk !== s.tk;
-    main.innerHTML = '<div class="lrow"><div class="lbl">ピンチ</div>' + tag.outerHTML.replace(' hidden=""', '').replace('id="tag"', '') + '</div><div class="scene' + (sc.length > 26 ? ' sm' : '') + '" id="vScene">' + esc(sc) + '</div>'
+    main.innerHTML = '<div class="lrow"><div class="lbl">ピンチ</div>' + tag.outerHTML.replace(' hidden=""', '').replace('id="tag"', '') + '</div><div class="scene k-panel' + (sc.length > 26 ? ' sm' : '') + '" id="vScene">' + esc(sc) + '</div>'
       + '<div class="lbl" style="margin-top:18px">使える道具</div><div class="tools" id="vTools">' + (s.tools || []).map(toolHtml).join('') + '</div>' + call;
     fitTools();
     if (newTools) { [].forEach.call($('vTools').children, function(el, k){ el.style.animationDelay = (k * 0.12) + 's'; reveal(el, 'k-reveal-fuda'); }); }

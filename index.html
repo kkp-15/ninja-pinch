@@ -144,14 +144,13 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 .pc-steps{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 8px;padding:0;list-style:none;font-size:15px;font-weight:700;color:var(--k-text-2)}
 .pc-steps li{padding-bottom:2px;border-bottom:3px solid transparent}
 .pc-steps li.now{color:var(--k-sumi);border-bottom-color:var(--k-orange)}
-.pc-scene{margin:0 0 12px;padding:12px 0 12px 14px;border-left:6px solid var(--k-orange);border-top:1px solid var(--k-line-soft);border-bottom:1px solid var(--k-line-soft)}
+.pc-scene{margin:0 0 12px;padding:10px 16px 12px}   /* 和紙の面は kit の k-panel */
 .pc-scene small,.pc-toolh small{display:block;font-size:14px;font-weight:700;color:var(--k-text-2)}
 .pc-scene p{margin:4px 0 0;font-family:var(--k-bold);font-size:22px;line-height:1.4;letter-spacing:.02em;word-break:auto-phrase;min-height:2.8em}
 .pc-scene p.wait{font-family:var(--k-body);font-size:16px;font-weight:700;color:var(--k-text-2);min-height:0}
 .pc-toolh{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:6px}
-.pc-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.pc-tool{display:grid;place-items:center;min-height:72px;padding:6px;border:2px solid var(--k-sumi);border-radius:var(--k-r);background:#fff;font-family:var(--k-bold);font-size:17px;line-height:1.25;text-align:center;word-break:keep-all;overflow-wrap:normal}
-.pc-tool.q{color:var(--k-text-2);background:var(--k-kinari)}
+.pc-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:14px}   /* 札の上の紐の分 */
+.pc-tool{--k-himo:26px;min-height:72px;padding:2px 4px 4px;font-size:17px;word-break:keep-all;overflow-wrap:normal}   /* 白木の札は kit の k-kifuda */
 .pc-link{min-height:44px;padding:0 4px;border:0;background:none;color:var(--k-sumi);font:inherit;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .pc-link[disabled]{color:var(--k-text-2);text-decoration:none;cursor:default}
 .pc-judge{margin:12px 0 0;padding:12px 0;border-top:2px solid var(--k-sumi)}
@@ -324,7 +323,7 @@ body.stream .pc-colB{padding-top:16px}
         <div class="pc-prog"><span id="gRound">第1話 / 5</span><span class="w" id="gWins">脱出 0</span><div class="k-bar"><i id="gBarI" style="width:0%"></i></div></div>
         <p class="pc-turn" id="gTurn"></p>
         <ol class="pc-steps" id="gSteps" hidden><li>1. ピンチを出す</li><li>2. 判定タイムにする</li><li>3. ハンコを押す</li></ol>
-        <div class="pc-scene"><small>ピンチ</small><p id="gScene"></p></div>
+        <div class="pc-scene k-panel"><small>ピンチ</small><p id="gScene"></p></div>
         <div class="pc-toolh"><small>使える道具</small><button type="button" class="pc-link" id="gRedraw" hidden>道具を引き直す（1回だけ）</button></div>
         <div class="pc-tools" id="gTools"></div>
         <p class="pc-hint" id="gHint" hidden>話は1〜2分。道具は全部使わなくてもOK。</p>
@@ -646,10 +645,10 @@ body.stream .pc-colB{padding-top:16px}
     if (ph === 'ready') {
       sc.className = 'wait';
       sc.textContent = st ? '「ピンチを出す」で場面と道具が出ます' : san(teller(0)) + 'がスマホを持って「ピンチを出す」';
-      $('gTools').innerHTML = '<div class="pc-tool q">？</div><div class="pc-tool q">？</div><div class="pc-tool q">？</div>';
+      $('gTools').innerHTML = '<div class="pc-tool k-kifuda k-kifuda-himo k-kifuda-q">？</div><div class="pc-tool k-kifuda k-kifuda-himo k-kifuda-q">？</div><div class="pc-tool k-kifuda k-kifuda-himo k-kifuda-q">？</div>';
     } else {
       sc.className = ''; sc.textContent = sceneText(G.scene);
-      $('gTools').innerHTML = G.tools.map(function(t){ return '<div class="pc-tool">' + window.PC_toolHtml(t) + '</div>'; }).join('');
+      $('gTools').innerHTML = G.tools.map(function(t){ return '<div class="pc-tool k-kifuda k-kifuda-himo">' + window.PC_toolHtml(t) + '</div>'; }).join('');
       fitTools();
       if (lastTk !== G.tk) { [].forEach.call($('gTools').children, function(el){ reveal(el, 'k-reveal-fuda'); }); }
     }
