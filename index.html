@@ -67,21 +67,17 @@
   gtag('config', 'G-2LM85GJN0L');
 </script>
 
+<!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh）。
+     配信モードの判定（KKit.stream）を広告より先に使うので defer なしで読む -->
+<script src="/kit/kit.js"></script>
 <!-- AdSense
      ふだんは結果画面を出したときに初めて読む（広告は結果のあとだけ）。
-     配信モード（PC幅768以上で手動・?mode=stream）では読まない。スマホでは配信モードにならない（広告を消す抜け道にしないため）。 -->
+     配信モード（PC幅768以上で手動・?mode=stream。kit の KKit.stream）では読まない。スマホでは配信モードにならない（広告を消す抜け道にしないため）。 -->
 <script>
 (function(){
-  var on = false;
-  try {
-    if (/[?&]mode=stream\b/.test(location.search)) localStorage.setItem('pinch-stream','1');
-    if (/[?&]mode=normal\b/.test(location.search)) localStorage.removeItem('pinch-stream');
-    on = localStorage.getItem('pinch-stream') === '1';
-  } catch(e){}
-  if (/[?&]mode=stream\b/.test(location.search)) on = true;
-  window.__pcWide = !!window.__kkpTest || !!(window.matchMedia && window.matchMedia('(min-width:768px)').matches);
-  if (!window.__pcWide) on = false;
-  window.__pcStream = on;
+  KKit.stream.init({ key: 'pinch-stream' });
+  window.__pcWide = KKit.stream.can();
+  window.__pcStream = KKit.stream.on;
   var state = 0, waits = [];
   window.__pcLoadAds = function(cb){
     if (window.__pcStream || window.__kkpTest) return;
@@ -100,11 +96,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
 <!-- k-fonts:start -->
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=-.%2F0123456789%40ABCDEFGHKOPST_abeijknpvwx%C2%A9%C2%B7%C3%97%E2%80%A6%E2%86%92%E2%88%92%E3%80%81%E3%80%82%E3%80%8C%E3%80%8D%E3%80%9C%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8E%E3%81%8F%E3%81%90%E3%81%91%E3%81%92%E3%81%93%E3%81%94%E3%81%95%E3%81%96%E3%81%97%E3%81%98%E3%81%99%E3%81%9A%E3%81%9B%E3%81%9C%E3%81%9D%E3%81%9E%E3%81%9F%E3%81%A0%E3%81%A1%E3%81%A3%E3%81%A4%E3%81%A5%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AC%E3%81%AD%E3%81%AE%E3%81%AF%E3%81%B0%E3%81%B1%E3%81%B2%E3%81%B3%E3%81%B5%E3%81%B6%E3%81%B8%E3%81%B9%E3%81%BA%E3%81%BB%E3%81%BC%E3%81%BD%E3%81%BE%E3%81%BF%E3%82%80%E3%82%81%E3%82%82%E3%82%83%E3%82%84%E3%82%85%E3%82%87%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8D%E3%82%8F%E3%82%92%E3%82%93%E3%82%A1%E3%82%A2%E3%82%A3%E3%82%A4%E3%82%A6%E3%82%A7%E3%82%A8%E3%82%AA%E3%82%AB%E3%82%AC%E3%82%AD%E3%82%AE%E3%82%AF%E3%82%B1%E3%82%B2%E3%82%B3%E3%82%B4%E3%82%B5%E3%82%B6%E3%82%B7%E3%82%B8%E3%82%B9%E3%82%BA%E3%82%BB%E3%82%BD%E3%82%BF%E3%83%80%E3%83%81%E3%83%83%E3%83%84%E3%83%86%E3%83%88%E3%83%89%E3%83%8A%E3%83%8B%E3%83%8D%E3%83%8E%E3%83%8F%E3%83%90%E3%83%91%E3%83%93%E3%83%94%E3%83%95%E3%83%96%E3%83%97%E3%83%9A%E3%83%9B%E3%83%9C%E3%83%9D%E3%83%9E%E3%83%9F%E3%83%A0%E3%83%A1%E3%83%A2%E3%83%A3%E3%83%A5%E3%83%A7%E3%83%A9%E3%83%AA%E3%83%AB%E3%83%AC%E3%83%AD%E3%83%AF%E3%83%B3%E3%83%BB%E3%83%BC%E4%B8%80%E4%B8%89%E4%B8%8A%E4%B8%8B%E4%B8%8D%E4%B8%A6%E4%B8%AD%E4%B8%B8%E4%BA%8B%E4%BA%95%E4%BA%BA%E4%BB%8A%E4%BB%A3%E4%BB%A4%E4%BB%A5%E4%BC%91%E4%BC%9A%E4%BC%9D%E4%BC%B8%E4%BD%8D%E4%BD%93%E4%BD%95%E4%BD%9C%E4%BD%BF%E4%BE%8B%E4%BF%A1%E4%BF%AE%E5%80%8B%E5%81%9C%E5%81%B4%E5%82%98%E5%82%B7%E5%84%80%E5%85%85%E5%85%88%E5%85%89%E5%85%A5%E5%85%A8%E5%85%AC%E5%85%B1%E5%85%B7%E5%86%8D%E5%86%A0%E5%86%B7%E5%87%8D%E5%87%BA%E5%88%86%E5%88%87%E5%88%97%E5%88%9D%E5%88%A4%E5%88%A5%E5%88%BB%E5%89%8D%E5%8A%9F%E5%8B%95%E5%8C%96%E5%8E%9F%E5%8F%8B%E5%8F%8D%E5%8F%8E%E5%8F%96%E5%8F%97%E5%8F%A3%E5%8F%B0%E5%8F%B7%E5%90%88%E5%90%8C%E5%90%8D%E5%90%9B%E5%91%8A%E5%91%A8%E5%91%AA%E5%91%B3%E5%91%BC%E5%91%BD%E5%93%81%E5%93%A1%E5%94%B1%E5%95%8F%E5%96%B6%E5%99%A8%E5%9B%9E%E5%9B%A3%E5%9B%B0%E5%9B%B3%E5%9B%BD%E5%9C%92%E5%9C%B0%E5%9F%8E%E5%A0%B1%E5%A0%B4%E5%A1%A9%E5%A2%97%E5%A2%A8%E5%A4%89%E5%A4%96%E5%A4%9A%E5%A4%A7%E5%A4%A9%E5%A4%B1%E5%A6%96%E5%A7%8B%E5%AD%90%E5%AD%97%E5%AD%A6%E5%AD%AB%E5%AE%87%E5%AE%99%E5%AE%9A%E5%AE%9D%E5%AE%A2%E5%AE%A4%E5%AE%B6%E5%AE%BF%E5%AF%92%E5%AF%9D%E5%AF%BE%E5%B0%8F%E5%B0%91%E5%B1%88%E5%B1%8B%E5%B1%B1%E5%B3%B6%E5%B7%A5%E5%B7%A8%E5%B8%83%E5%B8%B0%E5%B8%B3%E5%B8%BD%E5%B9%85%E5%B9%B2%E5%B9%B4%E5%BA%83%E5%BA%8A%E5%BA%95%E5%BA%A6%E5%BA%A7%E5%BA%AB%E5%BA%AD%E5%BC%81%E5%BC%8F%E5%BC%95%E5%BC%9F%E5%BD%93%E5%BE%85%E5%BE%8C%E5%BF%8D%E5%BF%98%E6%80%9D%E6%80%A5%E6%83%85%E6%84%8F%E6%87%90%E6%88%90%E6%88%B8%E6%88%BB%E6%89%80%E6%89%89%E6%89%8B%E6%8A%98%E6%8A%9C%E6%8A%BC%E6%8C%81%E6%8E%83%E6%8E%A2%E6%93%8D%E6%95%85%E6%95%97%E6%95%99%E6%95%A3%E6%95%B0%E6%95%B7%E6%96%87%E6%96%99%E6%96%B0%E6%96%B9%E6%97%8F%E6%97%97%E6%97%A5%E6%98%8E%E6%98%94%E6%98%A0%E6%98%BC%E6%99%82%E6%9A%97%E6%9B%B8%E6%9B%BF%E6%9C%80%E6%9C%88%E6%9C%9D%E6%9C%A8%E6%9C%AB%E6%9C%AC%E6%9C%AD%E6%9C%BA%E6%9D%91%E6%9D%A5%E6%9D%BE%E6%9D%BF%E6%9E%9A%E6%9E%9C%E6%9E%9D%E6%A0%93%E6%A0%A1%E6%A3%9A%E6%A4%8D%E6%A7%98%E6%A9%9F%E6%AC%A1%E6%AD%A2%E6%AD%A9%E6%AE%8B%E6%AE%B5%E6%AF%9B%E6%B0%8F%E6%B0%97%E6%B0%B4%E6%B1%BA%E6%B3%95%E6%B3%A8%E6%B4%97%E6%B5%B7%E6%B6%88%E6%B7%B1%E6%B8%88%E6%B8%9B%E6%B9%AF%E6%BA%B6%E6%BF%AF%E7%81%AF%E7%82%8A%E7%82%B9%E7%84%A1%E7%87%83%E7%89%88%E7%89%A9%E7%8A%AC%E7%8A%B6%E7%8B%99%E7%8C%AB%E7%8D%85%E7%8E%84%E7%8E%89%E7%8E%8B%E7%90%83%E7%90%86%E7%94%9F%E7%94%A8%E7%94%B3%E7%94%BB%E7%95%AA%E7%99%BA%E7%99%BB%E7%99%BD%E7%9B%A4%E7%9B%AE%E7%9B%B4%E7%9B%B8%E7%9C%9F%E7%9D%80%E7%9F%A5%E7%9F%B3%E7%A0%82%E7%A0%A6%E7%A2%BA%E7%A3%81%E7%A4%BA%E7%A5%AD%E7%A6%8F%E7%A8%AE%E7%A8%BF%E7%A9%BA%E7%AA%93%E7%AB%AF%E7%AB%B9%E7%AC%91%E7%AC%AC%E7%AD%86%E7%AD%92%E7%AE%B1%E7%B2%BE%E7%B3%96%E7%B4%99%E7%B4%9A%E7%B5%82%E7%B5%84%E7%B5%90%E7%B5%A1%E7%B5%A6%E7%B5%B5%E7%B6%9A%E7%B8%AE%E7%BD%AE%E7%BE%BD%E8%80%85%E8%81%9E%E8%82%B2%E8%84%B1%E8%85%95%E8%87%AA%E8%88%9E%E8%88%B9%E8%8A%B8%E8%90%BD%E8%94%B5%E8%99%AB%E8%A1%8C%E8%A1%A3%E8%A1%A8%E8%A3%85%E8%A6%81%E8%A6%8B%E8%A6%8F%E8%A6%9A%E8%A6%AA%E8%A7%92%E8%A8%80%E8%A8%88%E8%A8%98%E8%A8%AD%E8%A8%B1%E8%A9%A6%E8%A9%B1%E8%AA%8D%E8%AA%95%E8%AA%AD%E8%AB%8B%E8%AB%BE%E8%B1%86%E8%B2%B7%E8%B3%80%E8%B3%AA%E8%B5%B7%E8%B6%8A%E8%B6%B3%E8%B7%B3%E8%BB%8A%E8%BB%A2%E8%BC%AA%E8%BE%BC%E8%BF%B7%E9%80%80%E9%80%81%E9%80%8F%E9%80%94%E9%80%9A%E9%80%A3%E9%80%B2%E9%81%8A%E9%81%8B%E9%81%93%E9%81%A0%E9%81%B8%E9%83%A8%E9%85%8D%E9%87%8D%E9%87%91%E9%89%9B%E9%8C%B2%E9%8D%B5%E9%8F%A1%E9%95%B7%E9%96%80%E9%96%89%E9%96%8B%E9%96%93%E9%96%A2%E9%99%8D%E9%99%A4%E9%9B%86%E9%9B%A8%E9%9B%AA%E9%9B%B2%E9%9B%BB%E9%9D%A2%E9%A0%AD%E9%A1%8C%E9%A1%9E%E9%A2%A8%E9%A3%9B%E9%A3%9F%E9%A3%AF%E9%A3%BC%E9%A3%BE%E9%A4%A8%E9%A7%85%E9%AB%98%E9%AD%94%E9%AD%9A%E9%B3%B4%E9%BB%92%EF%BC%88%EF%BC%89%EF%BC%8B%EF%BC%8F%EF%BC%9A%EF%BC%9D%EF%BC%9F%EF%BD%9C" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=-.%2F0123456789%40ABCDEFGHIJKLMNOPQRSTUVWXY_abcdefghijklmnopqrstuvwxyz%C2%A9%C2%B7%E2%80%A6%E2%86%92%E2%87%84%E2%88%92%E3%80%81%E3%80%82%E3%80%87%E3%80%8C%E3%80%8D%E3%80%9C%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8E%E3%81%8F%E3%81%90%E3%81%91%E3%81%92%E3%81%93%E3%81%94%E3%81%95%E3%81%96%E3%81%97%E3%81%98%E3%81%99%E3%81%9A%E3%81%9B%E3%81%9C%E3%81%9D%E3%81%9E%E3%81%9F%E3%81%A0%E3%81%A1%E3%81%A3%E3%81%A4%E3%81%A5%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AC%E3%81%AD%E3%81%AE%E3%81%AF%E3%81%B0%E3%81%B1%E3%81%B2%E3%81%B3%E3%81%B5%E3%81%B6%E3%81%B8%E3%81%B9%E3%81%BA%E3%81%BB%E3%81%BC%E3%81%BD%E3%81%BE%E3%81%BF%E3%82%80%E3%82%81%E3%82%82%E3%82%83%E3%82%84%E3%82%85%E3%82%87%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8D%E3%82%8F%E3%82%92%E3%82%93%E3%82%A1%E3%82%A2%E3%82%A3%E3%82%A4%E3%82%A6%E3%82%A7%E3%82%A8%E3%82%AA%E3%82%AB%E3%82%AC%E3%82%AD%E3%82%AE%E3%82%AF%E3%82%B0%E3%82%B1%E3%82%B2%E3%82%B3%E3%82%B4%E3%82%B5%E3%82%B6%E3%82%B7%E3%82%B8%E3%82%B9%E3%82%BA%E3%82%BB%E3%82%BD%E3%82%BF%E3%83%80%E3%83%81%E3%83%83%E3%83%84%E3%83%86%E3%83%87%E3%83%88%E3%83%89%E3%83%8A%E3%83%8B%E3%83%8D%E3%83%8E%E3%83%8F%E3%83%90%E3%83%91%E3%83%93%E3%83%94%E3%83%95%E3%83%96%E3%83%97%E3%83%9A%E3%83%9B%E3%83%9C%E3%83%9D%E3%83%9E%E3%83%9F%E3%83%A0%E3%83%A1%E3%83%A2%E3%83%A3%E3%83%A5%E3%83%A7%E3%83%A9%E3%83%AA%E3%83%AB%E3%83%AC%E3%83%AD%E3%83%AF%E3%83%B3%E3%83%BB%E3%83%BC%E4%B8%80%E4%B8%89%E4%B8%8A%E4%B8%8B%E4%B8%8D%E4%B8%AD%E4%B8%B8%E4%BA%8B%E4%BA%95%E4%BA%BA%E4%BB%8A%E4%BB%98%E4%BB%A3%E4%BB%A4%E4%BB%A5%E4%BC%91%E4%BC%9A%E4%BC%9D%E4%BC%B8%E4%BD%8D%E4%BD%93%E4%BD%95%E4%BD%9C%E4%BD%BF%E4%BE%8B%E4%BF%9D%E4%BF%A1%E4%BF%AE%E5%80%8B%E5%80%8D%E5%80%A4%E5%81%9C%E5%81%B4%E5%82%98%E5%82%B7%E5%84%80%E5%85%85%E5%85%88%E5%85%89%E5%85%A5%E5%85%A8%E5%85%AC%E5%85%B1%E5%85%B7%E5%86%8D%E5%86%A0%E5%86%B7%E5%87%8D%E5%87%BA%E5%88%80%E5%88%86%E5%88%87%E5%88%97%E5%88%9D%E5%88%A4%E5%88%A5%E5%88%BA%E5%88%BB%E5%89%8D%E5%89%A3%E5%8A%9F%E5%8A%A0%E5%8B%95%E5%8C%96%E5%8D%B0%E5%8E%9F%E5%8F%8B%E5%8F%8D%E5%8F%8E%E5%8F%96%E5%8F%97%E5%8F%A3%E5%8F%AF%E5%8F%B0%E5%8F%B3%E5%8F%B7%E5%90%88%E5%90%8C%E5%90%8D%E5%90%9B%E5%91%8A%E5%91%A8%E5%91%AA%E5%91%B3%E5%91%BC%E5%91%BD%E5%93%81%E5%93%A1%E5%94%B1%E5%95%8F%E5%96%B6%E5%99%A8%E5%9B%9E%E5%9B%A3%E5%9B%B0%E5%9B%B3%E5%9B%BD%E5%9C%92%E5%9C%9F%E5%9C%B0%E5%9F%8E%E5%9F%BA%E5%A0%B1%E5%A0%B4%E5%A1%A9%E5%A2%97%E5%A2%A8%E5%A4%89%E5%A4%96%E5%A4%9A%E5%A4%A7%E5%A4%A9%E5%A4%B1%E5%A5%A5%E5%A6%96%E5%A7%8B%E5%AD%90%E5%AD%97%E5%AD%A3%E5%AD%A6%E5%AD%AB%E5%AE%87%E5%AE%99%E5%AE%9A%E5%AE%9D%E5%AE%A2%E5%AE%A4%E5%AE%B6%E5%AE%BF%E5%AF%92%E5%AF%9D%E5%AF%BE%E5%B0%8F%E5%B0%91%E5%B1%88%E5%B1%8B%E5%B1%B1%E5%B3%B6%E5%B7%A5%E5%B7%A6%E5%B7%A8%E5%B7%BB%E5%B8%83%E5%B8%B0%E5%B8%B3%E5%B8%BD%E5%B9%85%E5%B9%B2%E5%B9%B4%E5%BA%83%E5%BA%8A%E5%BA%95%E5%BA%A6%E5%BA%A7%E5%BA%AB%E5%BA%AD%E5%BC%81%E5%BC%8F%E5%BC%95%E5%BC%9F%E5%BD%93%E5%BD%A2%E5%BE%85%E5%BE%8C%E5%BF%8D%E5%BF%98%E6%80%9D%E6%80%A5%E6%83%85%E6%84%8F%E6%84%9F%E6%87%90%E6%88%90%E6%88%B8%E6%88%BB%E6%89%80%E6%89%89%E6%89%8B%E6%8A%98%E6%8A%9C%E6%8A%9E%E6%8A%BC%E6%8C%81%E6%8E%83%E6%8E%A2%E6%8F%8F%E6%93%8D%E6%95%85%E6%95%97%E6%95%99%E6%95%A3%E6%95%B0%E6%95%B7%E6%96%87%E6%96%99%E6%96%9C%E6%96%AC%E6%96%B0%E6%96%B9%E6%97%8F%E6%97%97%E6%97%A2%E6%97%A5%E6%98%8E%E6%98%94%E6%98%A0%E6%98%BC%E6%99%82%E6%99%AF%E6%9A%97%E6%9B%B8%E6%9B%BF%E6%9C%80%E6%9C%88%E6%9C%89%E6%9C%9D%E6%9C%9F%E6%9C%A8%E6%9C%AB%E6%9C%AC%E6%9C%AD%E6%9C%BA%E6%9D%91%E6%9D%A5%E6%9D%BE%E6%9D%BF%E6%9E%9A%E6%9E%9C%E6%9E%9D%E6%9E%A0%E6%A0%93%E6%A0%A1%E6%A1%9C%E6%A2%85%E6%A3%9A%E6%A4%8D%E6%A7%98%E6%A9%9F%E6%AC%84%E6%AC%A1%E6%AD%A2%E6%AD%A9%E6%AE%8B%E6%AE%B5%E6%AF%9B%E6%B0%8F%E6%B0%97%E6%B0%B4%E6%B1%BA%E6%B2%88%E6%B3%95%E6%B4%97%E6%B5%AE%E6%B5%B7%E6%B6%88%E6%B7%B1%E6%B8%85%E6%B8%88%E6%B8%9B%E6%B9%AF%E6%BA%96%E6%BA%9C%E6%BA%B6%E6%BC%94%E6%BD%94%E6%BF%AF%E7%81%AF%E7%82%8A%E7%82%B9%E7%84%A1%E7%87%83%E7%89%A9%E7%8A%AC%E7%8A%B6%E7%8B%99%E7%8C%AB%E7%8D%85%E7%8E%84%E7%8E%87%E7%8E%89%E7%8E%8B%E7%90%83%E7%90%86%E7%94%9F%E7%94%A8%E7%94%B3%E7%94%BB%E7%95%AA%E7%99%BA%E7%99%BB%E7%99%BD%E7%9B%A4%E7%9B%AE%E7%9B%B4%E7%9B%B8%E7%9C%9F%E7%9D%80%E7%9E%AC%E7%9F%A5%E7%9F%AD%E7%9F%B3%E7%A0%82%E7%A0%A6%E7%A2%BA%E7%A3%81%E7%A4%BA%E7%A5%AD%E7%A6%8F%E7%A8%AE%E7%A8%BF%E7%A9%BA%E7%AA%93%E7%AB%AF%E7%AB%B9%E7%AC%91%E7%AC%AC%E7%AD%86%E7%AD%8B%E7%AD%92%E7%AE%B1%E7%AF%80%E7%B2%92%E7%B2%BE%E7%B3%96%E7%B4%85%E7%B4%99%E7%B4%9A%E7%B4%A0%E7%B5%82%E7%B5%84%E7%B5%90%E7%B5%A1%E7%B5%A6%E7%B5%B5%E7%B6%9A%E7%B7%91%E7%B8%AE%E7%BD%AE%E7%BE%BD%E8%80%85%E8%81%9E%E8%82%B2%E8%83%8C%E8%84%B1%E8%85%95%E8%87%AA%E8%88%9E%E8%88%B9%E8%89%B2%E8%8A%B8%E8%90%BD%E8%91%89%E8%94%B5%E8%99%AB%E8%A1%8C%E8%A1%A3%E8%A1%A8%E8%A3%85%E8%A3%8F%E8%A6%81%E8%A6%8B%E8%A6%8F%E8%A6%9A%E8%A6%AA%E8%A7%92%E8%A8%80%E8%A8%88%E8%A8%AD%E8%A8%B1%E8%A9%A6%E8%A9%B1%E8%AA%8D%E8%AA%95%E8%AA%AD%E8%AB%8B%E8%AB%BE%E8%B1%86%E8%B2%B7%E8%B3%80%E8%B3%AA%E8%B5%B7%E8%B6%8A%E8%B6%B3%E8%B7%B3%E8%BA%AB%E8%BB%8A%E8%BB%A2%E8%BC%AA%E8%BE%BC%E8%BF%B7%E8%BF%BD%E9%80%80%E9%80%81%E9%80%8F%E9%80%94%E9%80%9A%E9%80%A3%E9%80%B2%E9%81%85%E9%81%8A%E9%81%8B%E9%81%8E%E9%81%93%E9%81%A0%E9%81%B8%E9%83%A8%E9%85%8D%E9%87%8D%E9%87%91%E9%89%9B%E9%8C%B2%E9%8D%B5%E9%8F%A1%E9%95%B7%E9%96%80%E9%96%83%E9%96%89%E9%96%8B%E9%96%93%E9%96%A2%E9%98%B2%E9%99%8D%E9%99%A4%E9%99%BA%E9%9B%86%E9%9B%A2%E9%9B%A8%E9%9B%AA%E9%9B%B2%E9%9B%BB%E9%9C%9E%E9%9D%99%E9%9D%A2%E9%9F%B3%E9%A0%AD%E9%A1%8C%E9%A1%9E%E9%A2%A8%E9%A3%9B%E9%A3%9F%E9%A3%AF%E9%A3%BC%E9%A3%BE%E9%A4%A8%E9%A7%85%E9%AB%98%E9%AD%94%E9%AD%9A%E9%B3%B4%E9%BB%92%EF%BC%88%EF%BC%89%EF%BC%8B%EF%BC%8F%EF%BC%9A%EF%BC%9D%EF%BC%9E%EF%BC%9F%EF%BD%9C" rel="stylesheet">
 <!-- k-fonts:end -->
-<!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh） -->
 <link rel="stylesheet" href="/kit/kit.css">
-<script src="/kit/kit.js" defer></script>
 <script src="/js/odai.js"></script>
 <style>
 /* ---- このサイトだけの並べ方（k- 以外の名前） ---- */
@@ -128,8 +122,6 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 .pc-packs .k-seg>button{flex-basis:33.34%}
 .pc-start{margin:24px 0 8px}
 .pc-start .k-btn-main{width:100%}
-.pc-resume{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:10px 0;border-top:2px solid var(--k-shu);border-bottom:1px solid var(--k-line-soft)}
-.pc-resume p{flex:1 1 220px;margin:0;font-size:15px;font-weight:700;line-height:1.5}
 .pc-streambox{margin:24px 0;padding:12px 0;border-top:2px solid var(--k-sumi);border-bottom:1px solid var(--k-line-soft)}
 .pc-streambox h2{margin:0 0 4px;font-size:16px}
 .pc-streambox a{color:var(--k-sumi);font-weight:700}
@@ -183,14 +175,14 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 .pc-log{margin:8px 0 0;padding:0;list-style:none;border-top:1px solid var(--k-line-soft)}
 .pc-log li{border-bottom:1px solid var(--k-line-soft)}
 .pc-log button{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:6px 4px;border:0;background:none;color:var(--k-sumi);font:inherit;text-align:left;cursor:pointer}
-.pc-log .r{flex:none;width:3em;font-family:var(--k-bold);font-size:15px;color:var(--k-text-2)}
-.pc-log .r.ok{color:var(--k-shu)}
+.pc-log .k-tag{flex:none;margin:0;font-family:var(--k-bold);font-weight:400;font-size:15px}
+.pc-log .k-tag.ng{background:var(--k-sumi)}
 .pc-log .t{flex:1;min-width:0;font-size:15px;line-height:1.45}
 .pc-log .t i{display:block;font-style:normal;font-size:14px;font-weight:700;color:var(--k-text-2)}
 .pc-log .b{flex:none;visibility:hidden}
 .pc-log li.best button{background:#fff6ea}
 .pc-log li.best .b{visibility:visible}
-.pc-log .b.k-stamp{width:48px;height:48px;font-size:14px;line-height:1.05;text-align:center}
+
 .pc-acts{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
 .pc-acts .k-btn{flex:1 1 220px}
 .pc-ad{margin:32px 0 8px}
@@ -249,7 +241,12 @@ body.stream.in-game .pc-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:24
 body.stream.in-game .pc-scene p{font-size:30px}
 body.stream.in-game .pc-tool{font-size:22px;min-height:96px}
 body.stream .pc-bar{position:static;margin:16px 0 8px;padding:0;border:0;background:none}
-body.stream .pc-colB{padding-top:16px}
+body.stream .pc-colB{padding-top:16px;display:flex;flex-direction:column}
+/* 主ボタンの段は右の列の一番上に固定（場面が変わっても同じ位置） */
+body.stream .pc-colB>.pc-bar{order:-2;margin:0 0 8px}
+body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
+.pc-live{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.pc-live .k-btn{min-height:44px;padding:0 14px;font-size:15px;box-shadow:var(--k-sh-s)}
 .pc-titleshow{margin:0 0 4px;font-family:var(--k-bold);font-size:18px}
 
 /* kit の13pxの札・注記はこのサイトでは14pxに（kit 側の次の版で直すまでの上書き） */
@@ -264,7 +261,7 @@ body.stream .pc-colB{padding-top:16px}
   <section id="setup">
     <h1 class="pc-h1">みんなのピンチ脱出</h1>
     <p class="pc-lead" id="lead">ピンチの場面と道具3つが出ます。道具で切り抜ける話をして、聞いた人が「成功」か「失敗」を決めます。</p>
-    <div class="pc-resume" id="resumeBox" hidden><p id="resumeT"></p><button type="button" class="k-btn k-btn-main k-btn-sm" id="resumeGo">続きから</button><button type="button" class="k-btn k-btn-sub k-btn-sm" id="resumeDel">消して新しく</button></div>
+    <div id="resumeBox" hidden></div>
 
     <div class="pc-sec">
       <h2><span class="k-step">STEP 1</span>遊び方</h2>
@@ -284,7 +281,7 @@ body.stream .pc-colB{padding-top:16px}
 
     <div class="pc-sec" id="secTitle" hidden>
       <h2><span class="k-step">STEP 2</span>タイトル</h2>
-      <div class="pc-title"><input type="text" class="pc-in" id="titleIn" maxlength="12" autocomplete="off" placeholder="みんな" aria-label="タイトルの名前の部分"><b>のピンチ脱出</b></div>
+      <label class="k-stream-title" id="titleBox"><input type="text" id="titleIn" maxlength="12" autocomplete="off" placeholder="みんな" aria-label="タイトルの名前の部分"><span>のピンチ脱出</span></label>
       <p class="pc-note">表示ページの上に出ます。</p>
     </div>
 
@@ -308,8 +305,8 @@ body.stream .pc-colB{padding-top:16px}
 
     <div class="pc-streambox" id="streamBox" hidden>
       <h2>配信に映す</h2>
-      <p class="pc-note" style="margin-top:0">広告は出ません。表示ページを OBS の「ウィンドウキャプチャ」で取り込みます。</p>
-      <div class="pc-row"><button type="button" class="k-btn k-btn-sub pc-viewopen">表示ページを別ウィンドウで開く</button><a href="/haishin/">使い方</a></div>
+      <p class="pc-note" style="margin:0 0 8px">広告は出ません。<span class="k-live" data-k-live="pinch-view">表示ページ：つながっていません</span>　<a href="/haishin/">使い方</a></p>
+      <div class="k-view-open" id="viewOpen" data-k-view="/view/" data-k-ch="pinch-view" data-k-name="pinchView"></div>
     </div>
 
     <div class="pc-start k-fix"><button type="button" class="k-btn k-btn-main" id="startBtn">はじめる</button></div>
@@ -336,7 +333,7 @@ body.stream .pc-colB{padding-top:16px}
         <div class="pc-stampbox" id="gStamp" hidden></div>
         <div class="pc-bar k-fix" id="gBar"></div>
         <div class="pc-minor" id="gMinor"></div>
-        <div class="pc-row" id="gView" hidden><button type="button" class="k-btn k-btn-sub k-btn-sm pc-viewopen">表示ページを開く</button></div>
+        <div class="pc-live" id="gView" hidden><span class="k-live" data-k-live="pinch-view">表示ページ：つながっていません</span><button type="button" class="k-btn k-btn-sub" id="gViewOpen">表示ページを開く</button></div>
       </div>
     </div>
   </section>
@@ -419,7 +416,8 @@ body.stream .pc-colB{padding-top:16px}
     cnt: [3, 5, 7].indexOf(CFG.cnt) >= 0 ? CFG.cnt : 5,
     title: ''
   };
-  try { S.title = (localStorage.getItem('pinch-title') || '').slice(0, 12); } catch (e) {}
+  var TT = KKit.streamTitle('#titleBox', { key: 'pinch-title', onChange: function(){ S.title = TT.value(); viewSend(); } });
+  S.title = TT.value();
   function saveCfg(){ lsSet('pinch-cfg', { n: S.n, names: S.names, pack: S.pack, lap: S.lap, cnt: S.cnt }); }
   function nm(i){ var t = String(S.names[i] || '').trim(); return t || DEF[i]; }
   function titleText(){ return (S.title.trim() || 'みんな') + 'のピンチ脱出'; }
@@ -427,8 +425,8 @@ body.stream .pc-colB{padding-top:16px}
   // ===== 1回の遊び（途中で再読み込みしても続きから。どこにも送らない） =====
   // phase: ready（最初の1話の前）→ story（話す）→ judge（判定）→ stamp（ハンコ）→ 次の story … → 結果
   var G = null, SCREEN = 'setup';
-  var RUN_KEY = 'pinch-run', RUN_TTL = 12 * 3600 * 1000;
-  function saveRun(){ if (G && SCREEN !== 'setup') lsSet(RUN_KEY, { at: Date.now(), screen: SCREEN, G: G }); }
+  var RES = { pending: false, save: function(){}, clear: function(){} };   // 続きから（kit の KKit.resume。下の「はじめに」で作る）
+  function saveRun(){ if (G && SCREEN !== 'setup' && !RES.pending) RES.save({ screen: SCREEN, G: G }); }
 
   // 場面の山（パックごと。全部出るまで同じ場面は出さない・次に遊ぶときも続きから）
   function sceneList(pack){
@@ -509,37 +507,31 @@ body.stream .pc-colB{padding-top:16px}
     render(); saveRun();
   }
 
-  // ===== OBS表示ページ（/view/）へ送る（同じブラウザの中だけ。BroadcastChannel＋localStorage） =====
-  var VIEW_CH = null; try { VIEW_CH = new BroadcastChannel('pinch-view'); } catch (e) {}
+  // ===== OBS表示ページ（/view/）へ送る（kit の KKit.live。同じブラウザの中だけ） =====
+  var LIVE = KKit.live({ ch: 'pinch-view', role: 'op' });
   function viewSend(){
     if (!S.stream) return;
-    var st = { t: Date.now(), title: titleText(), screen: SCREEN };
+    var st = { title: titleText(), screen: SCREEN };
     if (G && SCREEN !== 'setup') {
       st.phase = G.phase; st.i = G.i; st.total = G.total; st.wins = wins();
       st.scene = sceneText(G.scene); st.tools = G.tools; st.tk = G.tk; st.stamp = G.stamp; st.best = G.best;
       st.log = G.log.map(function(l){ return { scene: sceneText(l.scene), ok: l.ok }; });
     }
-    try { localStorage.setItem('pinch-view-state', JSON.stringify(st)); } catch (e) {}
-    try { if (VIEW_CH) VIEW_CH.postMessage(st); } catch (e) {}
+    LIVE.send(st);
   }
-  function openView(){
-    var w = null; try { w = window.open('/view/', 'pinchView', 'popup=yes,width=1280,height=720'); } catch (e) {}
-    if (!w) location.href = '/view/';
+  // 表示ページを開く（kit。開けなくても操作画面は動かさない）
+  $('viewOpen').addEventListener('k-view-open', function(){ track('pinch_view_open'); });
+  $('gViewOpen').addEventListener('click', function(){
+    if (!KKit.openView({ url: '/view/', ch: 'pinch-view', name: 'pinchView' })) KKit.toast('ポップアップを許可して、もう一度押してください', 4000);
     track('pinch_view_open');
-    setTimeout(viewSend, 600);
-  }
-  [].forEach.call(document.querySelectorAll('.pc-viewopen'), function(b){ b.addEventListener('click', openView); });
+  });
 
   // ===== 設定の画面 =====
+  // 配信モードのオン・オフは kit の KKit.stream（URL の # を消して読み直す）
   function setStream(on){
     on = !!on && WIDE;
-    if (on === S.stream && document.body.classList.contains('stream') === on) return;
-    S.stream = on;
-    try { if (on) localStorage.setItem('pinch-stream', '1'); else localStorage.removeItem('pinch-stream'); } catch (e) {}
-    window.__pcStream = on;
-    document.body.classList.toggle('stream', on);
-    $('modeTag').textContent = on ? '配信モード（広告なし）' : '登録不要・無料';
-    renderSetup(); fit(); viewSend();
+    if (on === S.stream) return;
+    saveCfg(); KKit.stream.set(on);
   }
   var SEGS = [];
   function segBind(id, attr, get, set, after){
@@ -555,7 +547,7 @@ body.stream .pc-colB{padding-top:16px}
     h += '<button type="button" data-pack="all">まぜる<small>' + sceneList('all').length + '場面</small></button>';
     $('packSeg').innerHTML = h;
   })();
-  segBind('modeSeg', 'mode', function(){ return S.stream ? 'stream' : 'room'; }, function(v){ setStream(v === 'stream'); track('pinch_mode', { mode: v }); });
+  segBind('modeSeg', 'mode', function(){ return S.stream ? 'stream' : 'room'; }, function(v){ if ((v === 'stream') !== S.stream) track('pinch_mode', { mode: v }); setStream(v === 'stream'); });
   segBind('packSeg', 'pack', function(){ return S.pack; }, function(v){ S.pack = v; });
   segBind('lapSeg', 'lap', function(){ return S.lap; }, function(v){ S.lap = +v; });
   segBind('cntSeg', 'c', function(){ return S.cnt; }, function(v){ S.cnt = +v; });
@@ -585,8 +577,6 @@ body.stream .pc-colB{padding-top:16px}
   }
   $('nMinus').addEventListener('click', function(){ if (S.n > 2) { S.n--; saveCfg(); renderNames(); } });
   $('nPlus').addEventListener('click', function(){ if (S.n < 8) { S.n++; saveCfg(); renderNames(); } });
-  $('titleIn').value = S.title;
-  $('titleIn').addEventListener('input', function(){ S.title = $('titleIn').value.slice(0, 12); try { localStorage.setItem('pinch-title', S.title.trim()); } catch (e) {} viewSend(); });
 
   // お題の例（読みもの）
   (function(){
@@ -606,7 +596,7 @@ body.stream .pc-colB{padding-top:16px}
     ['setup', 'game', 'result'].forEach(function(s){ $(s).hidden = s !== id; });
     document.body.classList.toggle('in-game', id !== 'setup');
     $('about').hidden = S.stream || id !== 'setup';
-    if (id === 'setup') { lsDel(RUN_KEY); renderSetup(); }
+    if (id === 'setup') { if (!RES.pending) RES.clear(); renderSetup(); }
     if (id === 'game') render();
     if (id === 'result') renderResult();
     window.scrollTo(0, 0);
@@ -702,7 +692,9 @@ body.stream .pc-colB{padding-top:16px}
       else bar.appendChild(btn('k-btn k-btn-main', st ? '次のピンチを出す' : '次は ' + san(teller(G.i + 1)) + '：ピンチを出す', function(){ act('pinch'); }));
       minor.appendChild(btn('pc-link', 'ハンコを押し直す', function(){ act('undo'); }));
     }
-    minor.appendChild(btn('pc-link', 'やめる', function(){ if (G.log.length && !confirm('ここでやめて、設定にもどりますか？')) return; G = null; show('setup'); }));
+    var quit = btn('pc-link', 'やめる', function(){});
+    KKit.twice(quit, { text: 'もう一度押すとやめる', ok: function(){ G = null; show('setup'); } });   // 回が消えるので2回押し
+    minor.appendChild(quit);
     $('gView').hidden = !st;
     fit(); viewSend();
   }
@@ -716,9 +708,9 @@ body.stream .pc-colB{padding-top:16px}
     var h = '';
     G.log.forEach(function(l, k){
       h += '<li' + (G.best === k ? ' class="best"' : '') + '><button type="button" data-k="' + k + '" aria-pressed="' + (G.best === k) + '">'
-        + '<span class="r' + (l.ok ? ' ok' : '') + '">' + (l.ok ? '成功' : '失敗') + '</span>'
+        + '<b class="k-tag' + (l.ok ? '' : ' ng') + '">' + (l.ok ? '成功' : '失敗') + '</b>'
         + '<span class="t">' + (l.who ? '<i>' + esc(san(l.who)) + '</i>' : '') + esc(sceneText(l.scene)) + '</span>'
-        + '<span class="b k-stamp">一番</span></button></li>';
+        + '<span class="b k-stamp k-stamp-sm">一番</span></button></li>';
     });
     $('rLog').innerHTML = h;
     var ad = $('adWrap');
@@ -751,18 +743,13 @@ body.stream .pc-colB{padding-top:16px}
   // ===== はじめに =====
   if (S.stream) { document.body.classList.add('stream'); $('modeTag').textContent = '配信モード（広告なし）'; }
   renderSetup();
-  (function(){
-    var run = lsGet(RUN_KEY, null);
-    if (!run || !run.G || Date.now() - run.at > RUN_TTL || !!run.G.stream !== S.stream) return;
-    var g = run.G;
-    $('resumeT').textContent = '前回の続きがあります（第' + (g.i + 1) + '話 / ' + g.total + '・脱出 ' + g.log.filter(function(l){ return l.ok; }).length + '）';
-    $('resumeBox').hidden = false;
-    $('resumeGo').addEventListener('click', function(){ G = g; $('resumeBox').hidden = true; show(run.screen === 'result' ? 'result' : 'game'); });
-    $('resumeDel').addEventListener('click', function(){ lsDel(RUN_KEY); $('resumeBox').hidden = true; fit(); });
-  })();
+  // 続きから（12時間・この端末だけ）。選ぶまでは /view/ に送らない（前の画面のまま）
+  RES = KKit.resume({ key: 'pinch-run', box: '#resumeBox', live: LIVE,
+    valid: function(d){ return d && d.G && !!d.G.stream === S.stream; },
+    label: function(d){ return '第' + (d.G.i + 1) + '話 / ' + d.G.total + '・脱出 ' + d.G.log.filter(function(l){ return l.ok; }).length; },
+    onResume: function(d){ G = d.G; show(d.screen === 'result' ? 'result' : 'game'); },
+    onDiscard: function(){ fit(); } });
   fit(); viewSend();
-  // /view/ が開いたら今の場面を送り直す
-  if (VIEW_CH) VIEW_CH.onmessage = function(e){ if (e.data && e.data.hello) viewSend(); };
   // テスト用
   window.__pc = { act: act, get G(){ return G; }, show: show, render: render };
 })();
