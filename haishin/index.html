@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>配信・実況でピンチ脱出ゲームをする方法｜押すのは3回・OBSに映せる（無料）</title>
+<meta name="description" content="雑談配信のコーナーで、ピンチの場面と道具3つから脱出の話をして、リスナーがコメントで成功か失敗かを決める遊び方。押すのは「ピンチを出す」「判定タイムにする」「ハンコ」の3回。表示ページをOBSに取り込めます。広告なし・登録不要。">
+<link rel="canonical" href="https://pinch.kkpwebninja.com/haishin/">
+<meta property="og:title" content="配信・実況でピンチ脱出ゲームをする方法">
+<meta property="og:description" content="ピンチの場面と道具3つで脱出の話をして、リスナーがコメントで判定。押すのは3回・OBSに映せる。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pinch.kkpwebninja.com/haishin/">
+<meta property="og:site_name" content="ピンチ脱出">
+<meta property="og:image" content="https://pinch.kkpwebninja.com/ogp.png?d=20261021">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"配信・実況でピンチ脱出ゲームをする方法","datePublished":"2026-10-21","dateModified":"2026-10-21","author":{"@type":"Organization","name":"web忍者の砦"},"publisher":{"@type":"Organization","name":"web忍者の砦"},"mainEntityOfPage":"https://pinch.kkpwebninja.com/haishin/"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2LM85GJN0L');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/kit/kit.css">
+<style>
+/* 読み物ページ：地は白、本文16px・#333・行間1.7（はぁの /haishin/ と同じ形） */
+:root{--orange:#ff8a3d;--cream:#fff8f0;--ink:#333;--muted:#6b5a48;--line:#e6dccb}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:1.4rem;line-height:1.5;margin:.2rem 0 .4rem}
+h1 .c{display:block;font-size:1rem;color:var(--muted);font-weight:700}
+.upd{font-size:.875rem;color:var(--muted);margin:0 0 .8rem}
+.lead{margin:0 0 1rem}
+.cta{display:block;min-height:48px;text-align:center;background:var(--orange);color:#1f1a17;font-weight:800;font-size:.95rem;padding:.75rem .5rem;border-radius:8px;text-decoration:none;margin:0 0 1.6rem}
+h2{font-size:20px;line-height:1.5;margin:0 0 .5rem;padding-left:.6rem;border-left:4px solid var(--orange)}
+.steps{margin:0 0 2rem;padding-left:1.6rem}.steps li{margin:0 0 .6rem}
+ul{margin:0 0 2rem;padding-left:1.4rem}ul li{margin:0 0 .5rem}
+code{background:#f6efe4;padding:.05rem .35rem;border-radius:4px;font-size:.92em}
+a{color:#1565c0}
+@media(min-width:760px){h2{font-size:22px}}
+.mode-cmp{width:100%;border-collapse:collapse;margin:1rem 0 .4rem;font-size:15px;line-height:1.5}
+.mode-cmp th,.mode-cmp td{border:1px solid #d9cbb6;padding:8px 10px;text-align:left;vertical-align:top;color:#1f1a17}
+.mode-cmp thead th{background:#f6efe3;font-weight:800}
+.mode-cmp tbody th{white-space:nowrap;font-weight:800}
+.mode-cmp-note{margin:0 0 1rem;font-size:14px;color:#5c4d3d}
+@media(max-width:480px){.mode-cmp{font-size:14px}.mode-cmp th,.mode-cmp td{padding:6px 7px}}
+</style>
+</head>
+<body class="k-page">
+<div class="wrap">
+
+<h1>配信・実況で使う方へ<span class="c">ピンチ脱出</span></h1>
+<p class="upd">更新日 <time datetime="2026-10-21">2026-10-21</time></p>
+<p class="lead">雑談配信の10〜15分のコーナー向けです。ピンチの場面と道具3つが出たら、配信者が脱出の話をして、リスナーがコメントで「成功」か「失敗」を決めます。インストールも登録もいりません。</p>
+
+<table class="mode-cmp"><thead><tr><th scope="col">遊び方</th><th scope="col">どう遊ぶ</th><th scope="col">広告</th></tr></thead><tbody><tr><th scope="row">同じ部屋で</th><td>スマホを回して、2〜8人で交代に話す</td><td>結果のあとだけ</td></tr><tr><th scope="row">配信する</th><td>PCで進めて OBS に映す。リスナーがコメントで判定</td><td>なし</td></tr></tbody></table>
+<p class="mode-cmp-note">「配信する」は、パソコン（画面の幅768px以上）で選べます。</p>
+
+<a class="cta" href="https://pinch.kkpwebninja.com/?mode=stream">配信モードで開く（無料・登録不要）</a>
+
+<h2>配信の前に（1分）</h2>
+<ol class="steps">
+<li>パソコンで <a href="https://pinch.kkpwebninja.com/?mode=stream">pinch.kkpwebninja.com/?mode=stream</a> を開きます（遊び方で「配信する」を選んでも同じ）。広告が消えます</li>
+<li>タイトル（「〇〇のピンチ脱出」の〇〇）、お題の種類、話の数（はじめは5話）を決めます</li>
+<li>「表示ページを別ウィンドウで開く」を押し、OBS の<b>「ウィンドウキャプチャ」</b>でそのウィンドウを取り込みます。表示ページは最小化しないでください（止まります）。OBS の「ブラウザソース」では操作の画面とつながりません</li>
+</ol>
+
+<h2>1話の流れ（押すのは3回）</h2>
+<ol class="steps">
+<li><b>ピンチを出す</b>：場面と道具3つが表示ページに出ます。道具が話しにくいときは「道具を引き直す」（1話に1回まで）</li>
+<li><b>判定タイムにする</b>：話し終えたら押します。表示ページに「成功か失敗をコメント！」が出ます</li>
+<li><b>ハンコを押す</b>：コメントを見て、多かった方の「成功のハンコ」か「失敗のハンコ」を押します。票は数えなくてかまいません。次は「次のピンチを出す」で1にもどります</li>
+</ol>
+<p>最後の話のあとは「結果を見る」で、脱出できた回数と全部の場面が表示ページに出ます。一番うけた話を1つえらぶと、表示ページにも印が付きます。</p>
+
+<h2>配信中に困ったとき</h2>
+<ul>
+<li><b>ハンコを押しまちがえた</b>：「ハンコを押し直す」で判定タイムにもどります</li>
+<li><b>ページを再読み込みした</b>：開き直すと「前回の続きがあります」が出ます。「続きから」でそのまま戻ります（中身はこのパソコンの中だけに置いています）</li>
+<li><b>表示ページが変わらない</b>：操作の画面と同じブラウザで開いているか確かめてください</li>
+</ul>
+
+<h2>配信で使うときの条件</h2>
+<p>許諾の申請はいりません。収益化もできます。概要欄にサイト名「web忍者の砦」とURL（https://pinch.kkpwebninja.com/）を書いてください。使うときは<a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener">お問い合わせ</a>か X（<a href="https://x.com/kkp_webninja" target="_blank" rel="noopener">@kkp_webninja</a>）で一言いただけると助かります。ご要望があれば、優先してアップデートします。くわしくは<a href="https://kkpwebninja.com/guidelines">配信・紹介・掲載のガイドライン</a>へ。場面と道具はすべてこのサイトのオリジナルです。</p>
+
+<p style="margin-top:2rem"><a class="cta" href="https://pinch.kkpwebninja.com/">ピンチ脱出を開く</a></p>
+
+</div>
+<!-- WEBNINJA_UNIFIED_FOOTER -->
+<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:.875rem;color:#5f6b7a;line-height:2;border-top:1px solid #f0e6d2;margin-top:2.5rem;background:#fffcf7;">
+  <div style="font-weight:800;color:#6e5530;font-size:.875rem;margin-bottom:0.4rem;">web忍者の砦</div>
+  <div>
+    <a href="https://kkpwebninja.com/" target="_blank" rel="noopener" style="color:#6e5530;text-decoration:none;margin:0 0.5rem;">本丸トップ</a>·
+    <a href="https://privacypolicy.kkpwebninja.com/" target="_blank" rel="noopener" style="color:#6e5530;text-decoration:none;margin:0 0.5rem;">プライバシーポリシー</a>·
+    <a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener" style="color:#6e5530;text-decoration:none;margin:0 0.5rem;">お問い合わせ</a>·
+    <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener" style="color:#6e5530;text-decoration:none;margin:0 0.5rem;">@kkp_webninja</a>
+  </div>
+  <div style="margin-top:0.5rem;color:#7a6440;">© 2025-2026 web忍者の砦</div>
+</footer>
+</body>
+</html>

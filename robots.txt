@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /view/
+Sitemap: https://pinch.kkpwebninja.com/sitemap.xml

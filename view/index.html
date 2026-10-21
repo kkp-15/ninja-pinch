@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>ピンチ脱出 配信表示</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- k-fonts:start -->
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=%2F0123456789ABCDEFGH%C2%A9%C2%B7%C3%97%E2%80%A6%E2%86%92%E2%88%92%E3%80%81%E3%80%82%E3%80%8C%E3%80%8D%E3%80%9C%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8E%E3%81%8F%E3%81%90%E3%81%91%E3%81%92%E3%81%93%E3%81%94%E3%81%95%E3%81%96%E3%81%97%E3%81%98%E3%81%99%E3%81%9A%E3%81%9B%E3%81%9C%E3%81%9D%E3%81%9E%E3%81%9F%E3%81%A0%E3%81%A1%E3%81%A3%E3%81%A4%E3%81%A5%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AC%E3%81%AD%E3%81%AE%E3%81%AF%E3%81%B0%E3%81%B1%E3%81%B2%E3%81%B3%E3%81%B5%E3%81%B6%E3%81%B8%E3%81%B9%E3%81%BA%E3%81%BB%E3%81%BC%E3%81%BD%E3%81%BE%E3%81%BF%E3%82%80%E3%82%81%E3%82%82%E3%82%83%E3%82%84%E3%82%85%E3%82%87%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8D%E3%82%8F%E3%82%92%E3%82%93%E3%82%A1%E3%82%A2%E3%82%A3%E3%82%A4%E3%82%A6%E3%82%A7%E3%82%A8%E3%82%AA%E3%82%AB%E3%82%AC%E3%82%AD%E3%82%AE%E3%82%AF%E3%82%B1%E3%82%B2%E3%82%B3%E3%82%B4%E3%82%B5%E3%82%B6%E3%82%B7%E3%82%B8%E3%82%B9%E3%82%BA%E3%82%BB%E3%82%BD%E3%82%BF%E3%83%80%E3%83%81%E3%83%83%E3%83%84%E3%83%86%E3%83%88%E3%83%89%E3%83%8A%E3%83%8B%E3%83%8D%E3%83%8E%E3%83%8F%E3%83%90%E3%83%91%E3%83%93%E3%83%94%E3%83%95%E3%83%96%E3%83%97%E3%83%9A%E3%83%9B%E3%83%9C%E3%83%9D%E3%83%9E%E3%83%9F%E3%83%A0%E3%83%A1%E3%83%A2%E3%83%A3%E3%83%A5%E3%83%A7%E3%83%A9%E3%83%AA%E3%83%AB%E3%83%AC%E3%83%AD%E3%83%AF%E3%83%B3%E3%83%BB%E3%83%BC%E4%B8%80%E4%B8%89%E4%B8%8A%E4%B8%8B%E4%B8%8D%E4%B8%A6%E4%B8%AD%E4%B8%B8%E4%BA%8B%E4%BA%95%E4%BA%BA%E4%BB%8A%E4%BB%A3%E4%BB%A4%E4%BB%A5%E4%BC%91%E4%BC%9A%E4%BC%9D%E4%BC%B8%E4%BD%8D%E4%BD%93%E4%BD%95%E4%BD%9C%E4%BD%BF%E4%BE%8B%E4%BF%9D%E4%BF%A1%E4%BF%AE%E5%80%8B%E5%81%9C%E5%81%B4%E5%82%98%E5%82%B7%E5%84%80%E5%85%85%E5%85%88%E5%85%89%E5%85%A5%E5%85%A8%E5%85%AC%E5%85%B1%E5%85%B7%E5%86%8D%E5%86%A0%E5%86%B7%E5%87%8D%E5%87%BA%E5%88%86%E5%88%87%E5%88%97%E5%88%9D%E5%88%A4%E5%88%A5%E5%88%BB%E5%89%8D%E5%8A%9F%E5%8B%95%E5%8C%96%E5%8E%9F%E5%8F%8B%E5%8F%8D%E5%8F%8E%E5%8F%96%E5%8F%97%E5%8F%A3%E5%8F%B0%E5%8F%B7%E5%90%88%E5%90%8C%E5%90%8D%E5%90%9B%E5%91%8A%E5%91%A8%E5%91%AA%E5%91%B3%E5%91%BC%E5%91%BD%E5%93%81%E5%93%A1%E5%94%B1%E5%95%8F%E5%96%B6%E5%99%A8%E5%9B%9E%E5%9B%A3%E5%9B%B0%E5%9B%B3%E5%9B%BD%E5%9C%92%E5%9C%B0%E5%9F%8E%E5%A0%B1%E5%A0%B4%E5%A1%A9%E5%A2%97%E5%A2%A8%E5%A4%89%E5%A4%96%E5%A4%9A%E5%A4%A7%E5%A4%A9%E5%A4%B1%E5%A6%96%E5%A7%8B%E5%AD%90%E5%AD%97%E5%AD%A6%E5%AD%AB%E5%AE%87%E5%AE%99%E5%AE%9A%E5%AE%9D%E5%AE%A2%E5%AE%A4%E5%AE%B6%E5%AE%BF%E5%AF%92%E5%AF%9D%E5%AF%BE%E5%B0%8F%E5%B0%91%E5%B1%88%E5%B1%8B%E5%B1%B1%E5%B3%B6%E5%B7%A5%E5%B7%A8%E5%B8%83%E5%B8%B0%E5%B8%B3%E5%B8%BD%E5%B9%85%E5%B9%B2%E5%B9%B4%E5%BA%83%E5%BA%8A%E5%BA%95%E5%BA%A6%E5%BA%A7%E5%BA%AB%E5%BA%AD%E5%BC%81%E5%BC%8F%E5%BC%95%E5%BC%9F%E5%BD%93%E5%BE%85%E5%BE%8C%E5%BF%8D%E5%BF%98%E6%80%9D%E6%80%A5%E6%83%85%E6%84%8F%E6%87%90%E6%88%90%E6%88%B8%E6%88%BB%E6%89%80%E6%89%89%E6%89%8B%E6%8A%98%E6%8A%9C%E6%8A%BC%E6%8C%81%E6%8E%83%E6%8E%A2%E6%93%8D%E6%95%85%E6%95%97%E6%95%99%E6%95%A3%E6%95%B0%E6%95%B7%E6%96%87%E6%96%99%E6%96%B0%E6%96%B9%E6%97%8F%E6%97%97%E6%97%A5%E6%98%8E%E6%98%94%E6%98%A0%E6%98%BC%E6%99%82%E6%9A%97%E6%9B%B8%E6%9B%BF%E6%9C%80%E6%9C%88%E6%9C%9D%E6%9C%A8%E6%9C%AB%E6%9C%AC%E6%9C%AD%E6%9C%BA%E6%9D%91%E6%9D%A5%E6%9D%BE%E6%9D%BF%E6%9E%9A%E6%9E%9C%E6%9E%9D%E6%A0%93%E6%A0%A1%E6%A3%9A%E6%A4%8D%E6%A7%98%E6%A9%9F%E6%AC%A1%E6%AD%A2%E6%AD%A9%E6%AE%8B%E6%AE%B5%E6%AF%9B%E6%B0%8F%E6%B0%97%E6%B0%B4%E6%B1%BA%E6%B3%95%E6%B3%A8%E6%B4%97%E6%B5%B7%E6%B6%88%E6%B7%B1%E6%B8%88%E6%B8%9B%E6%B9%AF%E6%BA%B6%E6%BF%AF%E7%81%AF%E7%82%8A%E7%82%B9%E7%84%A1%E7%87%83%E7%89%88%E7%89%A9%E7%8A%AC%E7%8A%B6%E7%8B%99%E7%8C%AB%E7%8D%85%E7%8E%84%E7%8E%89%E7%8E%8B%E7%90%83%E7%90%86%E7%94%9F%E7%94%A8%E7%94%B3%E7%94%BB%E7%95%AA%E7%99%BA%E7%99%BB%E7%99%BD%E7%9B%A4%E7%9B%AE%E7%9B%B4%E7%9B%B8%E7%9C%9F%E7%9D%80%E7%9F%A5%E7%9F%B3%E7%A0%82%E7%A0%A6%E7%A2%BA%E7%A3%81%E7%A4%BA%E7%A5%AD%E7%A6%8F%E7%A8%AE%E7%A8%BF%E7%A9%BA%E7%AA%93%E7%AB%AF%E7%AB%B9%E7%AC%91%E7%AC%AC%E7%AD%86%E7%AD%92%E7%AE%B1%E7%B2%BE%E7%B3%96%E7%B4%99%E7%B4%9A%E7%B5%82%E7%B5%84%E7%B5%90%E7%B5%A1%E7%B5%A6%E7%B5%B5%E7%B6%9A%E7%B8%AE%E7%BD%AE%E7%BE%BD%E8%80%85%E8%81%9E%E8%82%B2%E8%84%B1%E8%85%95%E8%87%AA%E8%88%9E%E8%88%B9%E8%8A%B8%E8%90%BD%E8%94%B5%E8%99%AB%E8%A1%8C%E8%A1%A3%E8%A1%A8%E8%A3%85%E8%A6%81%E8%A6%8B%E8%A6%8F%E8%A6%9A%E8%A6%AA%E8%A7%92%E8%A8%80%E8%A8%88%E8%A8%98%E8%A8%AD%E8%A8%B1%E8%A9%A6%E8%A9%B1%E8%AA%8D%E8%AA%95%E8%AA%AD%E8%AB%8B%E8%AB%BE%E8%B1%86%E8%B2%B7%E8%B3%80%E8%B3%AA%E8%B5%B7%E8%B6%8A%E8%B6%B3%E8%B7%B3%E8%BB%8A%E8%BB%A2%E8%BC%AA%E8%BE%BC%E8%BF%B7%E9%80%80%E9%80%81%E9%80%8F%E9%80%94%E9%80%9A%E9%80%A3%E9%80%B2%E9%81%8A%E9%81%8B%E9%81%93%E9%81%A0%E9%81%B8%E9%83%A8%E9%85%8D%E9%87%8D%E9%87%91%E9%89%9B%E9%8C%B2%E9%8D%B5%E9%8F%A1%E9%95%B7%E9%96%80%E9%96%89%E9%96%8B%E9%96%93%E9%96%A2%E9%99%8D%E9%99%A4%E9%99%BA%E9%9B%86%E9%9B%A8%E9%9B%AA%E9%9B%B2%E9%9B%BB%E9%9D%A2%E9%A0%AD%E9%A1%8C%E9%A1%9E%E9%A2%A8%E9%A3%9B%E9%A3%9F%E9%A3%AF%E9%A3%BC%E9%A3%BE%E9%A4%A8%E9%A7%85%E9%AB%98%E9%AD%94%E9%AD%9A%E9%B3%B4%E9%BB%92%EF%BC%81%EF%BC%88%EF%BC%89%EF%BC%8B%EF%BC%8F%EF%BC%9A%EF%BC%9D%EF%BC%9F%EF%BD%9C" rel="stylesheet">
+<!-- k-fonts:end -->
+<link rel="stylesheet" href="/kit/kit.css">
+<script src="/kit/kit.js" defer></script>
+<!-- OBS 表示ページ。広告・GA4 なし。操作ページ（同じブラウザ）から BroadcastChannel で今の場面だけ受け取る。
+     1600x900 で組んだ舞台を、ウィンドウに合わせて縮める（どのサイズでもスクロールなし）。
+     字はすべて舞台の上で42px以上（1/3に縮めても14px相当）。 -->
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:var(--k-kinari)}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:0 0;box-sizing:border-box;padding:36px 56px 40px;display:flex;flex-direction:column;background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/420px auto;font-family:var(--k-body);color:var(--k-sumi)}
+.top{display:flex;align-items:center;gap:28px;padding-bottom:16px;border-bottom:4px solid var(--k-sumi)}
+.top .ttl{flex:1;min-width:0;font-family:var(--k-head);font-weight:800;font-size:52px;}
+.top .ttl.m{font-size:46px}.top .ttl.s{font-size:42px}
+.top .ttl{letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.tag{flex:none;padding:4px 22px;background:var(--k-sumi);color:#fff;font-family:var(--k-bold);font-size:42px;transform:skewX(-8deg)}
+.tag.on{background:var(--k-shu)}
+.score{flex:none;font-family:var(--k-bold);font-size:44px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.score b{color:var(--k-shu);font-weight:400}
+.main{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;padding-top:20px}
+.lbl{font-size:42px;font-weight:800;color:var(--k-text-2);line-height:1.2}
+.scene{margin:6px 0 0;padding:6px 0 6px 28px;border-left:14px solid var(--k-orange);font-family:var(--k-bold);font-size:72px;line-height:1.25;letter-spacing:.02em;word-break:auto-phrase;text-wrap:balance;min-height:180px;display:flex;align-items:center}
+.scene.sm{font-size:62px}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:10px}
+.tool{display:grid;place-items:center;height:168px;padding:8px 18px;box-sizing:border-box;border:5px solid var(--k-sumi);border-radius:12px;background:#fff;font-family:var(--k-bold);font-size:64px;line-height:1.15;text-align:center;word-break:auto-phrase;text-wrap:balance;box-shadow:6px 6px 0 var(--k-sumi)}
+.tool{overflow-wrap:anywhere}
+.tool.long{font-size:54px}
+.tool.q{color:var(--k-text-2);background:var(--k-kinari);box-shadow:none}
+.call{margin-top:26px;font-family:var(--k-bold);font-size:56px;line-height:1.25;text-align:center}
+.call.sub{font-family:var(--k-body);font-weight:800;font-size:46px;color:var(--k-text-2)}
+.call b{color:var(--k-shu);font-weight:400}
+#hanko{position:absolute;left:50%;top:51%;display:grid;place-items:center;width:900px;height:372px;margin:-186px 0 0 -450px;background:url(/kit/img/d3-hanko-rect.webp) center/100% 100% no-repeat;font-family:var(--k-head);font-weight:800;font-size:150px;letter-spacing:.06em;color:var(--k-shu);transform:rotate(-5deg);z-index:5}
+#hanko.ng{filter:grayscale(1) brightness(.42) contrast(1.2);color:var(--k-sumi)}
+#veil{position:absolute;inset:0;background:rgba(251,243,228,.55);z-index:4}
+/* はじまる前 */
+.idle{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.idle .big{font-family:var(--k-brush);font-size:120px;line-height:1.15;letter-spacing:.06em;word-break:auto-phrase}
+.idle p{margin:0;font-size:48px;font-weight:800;color:var(--k-text-2);line-height:1.4}
+/* 結果 */
+.end h2{margin:0 0 16px;font-family:var(--k-bold);font-weight:400;font-size:64px;line-height:1.2}
+.end h2 b{color:var(--k-shu);font-size:120px;font-weight:400;font-variant-numeric:tabular-nums}
+.end ol{margin:0;padding:0;list-style:none}
+.end li{display:flex;align-items:center;gap:20px;padding:8px 0;border-top:3px solid var(--k-line-soft);font-size:42px;font-weight:800;line-height:1.25}
+.end li b{flex:none;width:2.4em;font-family:var(--k-bold);font-weight:400;color:var(--k-text-2)}
+.end li b.ok{color:var(--k-shu)}
+.end li span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.end li i{flex:none;font-style:normal;padding:0 16px;border:4px solid var(--k-shu);border-radius:6px;color:var(--k-shu);font-family:var(--k-bold);font-size:42px}
+.end li.best{background:rgba(255,138,61,.12)}
+.end.many li{padding:4px 0;font-size:42px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="top"><span class="ttl" id="ttl">ピンチ脱出</span><span class="score" id="score"></span></div>
+  <span class="tag" id="tag" hidden></span>
+  <div class="main" id="main"></div>
+  <div id="veil" hidden></div>
+  <div id="hanko" hidden></div>
+</div>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+  function fit(){ var s = $('stage'), z = Math.min(innerWidth / 1600, innerHeight / 900); s.style.transform = 'scale(' + z + ') translate(-50%,-50%)'; }
+  window.addEventListener('resize', fit); fit();
+  function reveal(el, cls){ if (el && window.KKit && KKit.reveal) { el.classList.add(cls); KKit.reveal(el); } }
+  var lastTk = null, lastStamp = null, lastPhase = '';
+  function toolHtml(t){ return '<div class="tool' + (String(t).length >= 7 ? ' long' : '') + '">' + esc(t) + '</div>'; }
+  function render(s){
+    if (!s) s = { screen: 'setup', title: 'みんなのピンチ脱出' };
+    var tt = s.title || 'ピンチ脱出';
+    $('ttl').textContent = tt; $('ttl').className = 'ttl' + (tt.length > 16 ? ' s' : tt.length > 12 ? ' m' : '');
+    var main = $('main'), tag = $('tag'), hk = $('hanko');
+    var inGame = s.screen === 'game' && s.phase && s.phase !== 'ready';
+    $('score').innerHTML = s.screen === 'setup' || !s.total ? '' : '第' + Math.min(s.i + 1, s.total) + '話 / ' + s.total + '　脱出 <b>' + (s.wins || 0) + '</b>';
+    tag.className = 'tag';
+    if (s.screen === 'result') {
+      tag.textContent = '結果'; tag.className = 'tag on';
+      $('score').innerHTML = '';
+      var log = s.log || [];
+      main.innerHTML = '<div class="end' + (log.length > 5 ? ' many' : '') + '"><h2>' + log.length + '話のうち 脱出 <b>' + (s.wins || 0) + '</b></h2><ol>'
+        + log.map(function(l, k){ return '<li' + (s.best === k ? ' class="best"' : '') + '><b class="' + (l.ok ? 'ok' : '') + '">' + (l.ok ? '成功' : '失敗') + '</b><span>' + esc(l.scene) + '</span>' + (s.best === k ? '<i>一番うけた</i>' : '') + '</li>'; }).join('')
+        + '</ol></div>';
+      hk.hidden = true; $('veil').hidden = true; lastPhase = 'result';
+      return;
+    }
+    if (!inGame) {
+      tag.textContent = 'はじまるよ';
+      main.innerHTML = '<div class="idle"><div class="big">' + esc(s.title || 'ピンチ脱出') + '</div><p>ピンチの場面と、使える道具が3つ出ます。<br>配信者が脱出の話をしたら、<br>「成功」か「失敗」をコメントしてね。</p></div>';
+      hk.hidden = true; $('veil').hidden = true; lastPhase = 'idle'; lastTk = null;
+      return;
+    }
+    tag.textContent = { story: 'お話タイム', judge: '判定タイム', stamp: '判定' }[s.phase] || '';
+    if (s.phase === 'judge') tag.className = 'tag on';
+    var call = s.phase === 'story' ? '<p class="call sub">配信者のお話を聞いてね</p>'
+      : s.phase === 'judge' ? '<p class="call">「<b>成功</b>」か「失敗」をコメント！</p>' : '';
+    var sc = String(s.scene || '');
+    var newTools = lastTk !== s.tk;
+    main.innerHTML = '<div class="lrow"><div class="lbl">ピンチ</div>' + tag.outerHTML.replace(' hidden=""', '').replace('id="tag"', '') + '</div><div class="scene' + (sc.length > 26 ? ' sm' : '') + '" id="vScene">' + esc(sc) + '</div>'
+      + '<div class="lbl" style="margin-top:18px">使える道具</div><div class="tools" id="vTools">' + (s.tools || []).map(toolHtml).join('') + '</div>' + call;
+    if (newTools) { [].forEach.call($('vTools').children, function(el, k){ el.style.animationDelay = (k * 0.12) + 's'; reveal(el, 'k-reveal-fuda'); }); }
+    lastTk = s.tk;
+    if (s.phase === 'stamp') {
+      hk.textContent = s.stamp ? '脱出成功' : '脱出ならず';
+      hk.className = s.stamp ? '' : 'ng';
+      hk.hidden = false; $('veil').hidden = false;
+      if (lastPhase !== 'stamp' || lastStamp !== s.stamp) reveal(hk, 'k-reveal-stamp');
+    } else { hk.hidden = true; $('veil').hidden = true; }
+    lastPhase = s.phase; lastStamp = s.stamp;
+  }
+  var cur = null;
+  function take(s){ if (!s || !s.screen || (cur && s.t && cur.t && s.t < cur.t)) return; cur = s; render(s); }
+  try { take(JSON.parse(localStorage.getItem('pinch-view-state') || 'null')); } catch (e) { render(null); }
+  if (!cur) render(null);
+  var ch = null; try { ch = new BroadcastChannel('pinch-view'); ch.onmessage = function(e){ take(e.data); }; ch.postMessage({ hello: 1 }); } catch (e) {}
+  // BroadcastChannel が使えないときの保険
+  window.addEventListener('storage', function(e){ if (e.key === 'pinch-view-state' && e.newValue) { try { take(JSON.parse(e.newValue)); } catch (x) {} } });
+})();
+</script>
+</body>
+</html>
