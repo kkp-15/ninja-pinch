@@ -305,7 +305,7 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
 
     <div class="pc-streambox" id="streamBox" hidden>
       <h2>配信に映す</h2>
-      <p class="pc-note" style="margin:0 0 8px">広告は出ません。<span class="k-live" data-k-live="pinch-view">表示ページ：つながっていません</span>　<a href="/haishin/">使い方</a></p>
+      <p class="pc-note" style="margin:0 0 8px"><span class="k-live" data-k-live="pinch-view">表示ページ：つながっていません</span>　<a href="/haishin/">使い方</a></p>
       <div class="k-view-open" id="viewOpen" data-k-view="/view/" data-k-ch="pinch-view" data-k-name="pinchView"></div>
     </div>
 
@@ -744,7 +744,7 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ fitTools(); fit(); });
 
   // ===== はじめに =====
-  if (S.stream) { document.body.classList.add('stream'); $('modeTag').textContent = '配信モード（広告なし）'; }
+  if (S.stream) { document.body.classList.add('stream'); $('modeTag').textContent = '配信モード'; }
   renderSetup();
   // 続きから（12時間・この端末だけ）。選ぶまでは /view/ に送らない（前の画面のまま）
   RES = KKit.resume({ key: 'pinch-run', box: '#resumeBox', live: LIVE,
