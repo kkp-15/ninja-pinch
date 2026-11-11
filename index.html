@@ -184,6 +184,17 @@ h1.pc-h1{margin:24px 0 8px;font-family:var(--k-brush);font-weight:400;font-size:
 .pc-log li.best button{background:#fff6ea}
 .pc-log li.best .b{visibility:visible}
 
+/* 一番うけた話の札（2026-11-11） */
+.pc-best{margin:16px 0 0;padding:14px 16px 12px;border:2px solid var(--k-sumi);border-radius:6px;background:#fffdf8}
+.pc-best[hidden]{display:none}
+.pc-best-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px;margin:0 0 8px;padding:0 0 6px;border-bottom:2px solid var(--k-orange);font-family:var(--k-bold);font-size:18px}
+.pc-best-h small{font-family:var(--k-body);font-size:14px;font-weight:700;color:var(--k-text-2)}
+.pc-best-l{margin:8px 0 2px;font-size:14px;font-weight:700;color:var(--k-text-2)}
+.pc-best-scene{margin:0;font-size:17px;font-weight:800;line-height:1.5}
+.pc-best-tools{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0;padding:0;list-style:none}
+.pc-best-tools li{padding:4px 10px;border:1px solid var(--k-sumi);border-radius:4px;background:#fff;font-size:15px;font-weight:700}
+.pc-best-f{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;margin:10px 0 0;font-size:15px}
+.pc-best-f .u{color:var(--k-text-2);font-size:14px}
 .pc-acts{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
 .pc-acts .k-btn{flex:1 1 220px}
 .pc-ad{margin:32px 0 8px}
@@ -374,6 +385,8 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
     <p class="pc-com" id="rCom"></p>
     <h2 class="pc-rh">一番うけた話は？ <small>（えらばなくてもOK）</small></h2>
     <ul class="pc-log" id="rLog"></ul>
+    <!-- 2026-11-11 えらんだ話を1枚の札に（場面・道具3つ・話した人）。スクショしやすい形。配信中は表示ページにも出す -->
+    <div class="pc-best" id="rBest" hidden aria-live="polite"></div>
     <div class="pc-acts">
       <button type="button" class="k-btn k-btn-main" id="againBtn">同じメンバーでもう1回</button>
       <button type="button" class="k-btn k-btn-sub" id="backBtn">遊び方・メンバーを変える</button>
@@ -558,7 +571,7 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
     if (G && SCREEN !== 'setup') {
       st.phase = G.phase; st.i = G.i; st.total = G.total; st.wins = wins();
       st.scene = sceneText(G.scene); st.tools = G.tools; st.tk = G.tk; st.stamp = G.stamp; st.best = G.best;
-      st.log = G.log.map(function(l){ return { scene: sceneText(l.scene), ok: l.ok }; });
+      st.log = G.log.map(function(l){ return { scene: sceneText(l.scene), ok: l.ok, tools: l.tools }; });
     }
     LIVE.send(st);
   }
@@ -759,6 +772,13 @@ body.stream .pc-colB>.pc-minor{order:-1;margin:0 0 4px}
         + '<span class="b k-stamp k-stamp-sm">一番</span></button></li>';
     });
     $('rLog').innerHTML = h;
+    // えらんだ話を1枚の札に（場面・道具3つ・話した人・判定）
+    var bl = G.best >= 0 ? G.log[G.best] : null, bx = $('rBest');
+    bx.hidden = !bl;
+    bx.innerHTML = !bl ? '' : '<p class="pc-best-h">一番うけた話<small>' + esc(titleText()) + '</small></p>'
+      + '<p class="pc-best-l">ピンチ</p><p class="pc-best-scene">' + esc(sceneText(bl.scene)) + '</p>'
+      + '<p class="pc-best-l">使える道具</p><ul class="pc-best-tools">' + (bl.tools || []).map(function(t){ return '<li>' + esc(String(t).replace(/\|/g, '')) + '</li>'; }).join('') + '</ul>'
+      + '<p class="pc-best-f"><span>' + (bl.who ? '話した人：<b>' + esc(san(bl.who)) + '</b>　' : '') + '判定：<b>' + (bl.ok ? '脱出成功' : '脱出ならず') + '</b></span><span class="u">pinch.kkpwebninja.com</span></p>';
     var ad = $('adWrap');
     ad.hidden = S.stream || !!window.__kkpTest;
     if (!ad.hidden && !adPushed) {

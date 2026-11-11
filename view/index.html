@@ -102,6 +102,16 @@ body.vert .end .k-result{max-width:none;align-self:center}
     var main = $('main'), tag = $('tag'), hk = $('hanko');
     tag.hidden = false;
     $('score').innerHTML = s.screen === 'result' || !s.total ? '' : '<span class="n">第' + Math.min(s.i + 1, s.total) + '話 / ' + s.total + '　</span>脱出 <b>' + (s.wins || 0) + '</b>';
+    if (s.screen === 'result' && s.best >= 0 && s.log && s.log[s.best]) {
+      // 2026-11-11 一番うけた話をえらんだら、その話を1枚の札に（場面・道具3つ・判定）
+      var bl = s.log[s.best], bn = s.log.length;
+      tag.textContent = '一番うけた話'; tag.className = 'pc-tag on';
+      $('score').innerHTML = '<span class="n">' + bn + '話で　</span>脱出 <b>' + (s.wins || 0) + '</b>';
+      main.innerHTML = '<p class="call">一番うけた話（<b>' + (bl.ok ? '脱出成功' : '脱出ならず') + '</b>）</p><div class="scene k-panel" id="vScene">' + esc(bl.scene || '') + '</div>'
+        + '<div class="lbl">使える道具</div><div class="tools" id="vTools">' + (bl.tools || []).map(toolHtml).join('') + '</div>';
+      hk.hidden = true; $('veil').hidden = true; lastPhase = 'result'; lastTk = null;
+      fitBody(); return;
+    }
     if (s.screen === 'result') {
       tag.textContent = '結果'; tag.className = 'pc-tag on';
       var log = s.log || [], n = log.length, cols = n > 4 ? 2 : 1;
